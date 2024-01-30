@@ -12,13 +12,16 @@
         <module name="Log" />
         <module name="Combat" />
         <module name="Boutique" />
-        <module name="Equipe" />
         <module name="Inventaire" />
+        <module name="Joueur" />
         <module name="Monstre" />
-        <module name="Portefeuille" />
         <module name="Coffre" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Equipe" target="21" />
+      <module name="Portefeuille" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -30,6 +33,7 @@
       <module name="DemoHelloWorld" options="-parameters" />
       <module name="Equipe" options="-parameters" />
       <module name="Inventaire" options="-parameters" />
+      <module name="Joueur" options="-parameters" />
       <module name="Log" options="-parameters" />
       <module name="Monstre" options="-parameters" />
       <module name="Portefeuille" options="-parameters" />

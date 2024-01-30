@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/Monstre/pom.xml" />
         <option value="$PROJECT_DIR$/Combat/pom.xml" />
         <option value="$PROJECT_DIR$/Log/pom.xml" />
+        <option value="$PROJECT_DIR$/Joueur/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
