@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/API_GATEWAY/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Boutique/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cave/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Coffre/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Combat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DemoHelloWorld/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Equipe/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Inventaire/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Log/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Monstre/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Portefeuille/src/main/java" charset="UTF-8" />
+  </component>
+</project>

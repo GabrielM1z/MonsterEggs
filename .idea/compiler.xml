@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="API_GATEWAY" />
+        <module name="Cave" />
+        <module name="DemoHelloWorld" />
+        <module name="Log" />
+        <module name="Combat" />
+        <module name="Boutique" />
+        <module name="Equipe" />
+        <module name="Inventaire" />
+        <module name="Monstre" />
+        <module name="Portefeuille" />
+        <module name="Coffre" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="API_GATEWAY" options="-parameters" />
+      <module name="Boutique" options="-parameters" />
+      <module name="Cave" options="-parameters" />
+      <module name="Coffre" options="-parameters" />
+      <module name="Combat" options="-parameters" />
+      <module name="DemoHelloWorld" options="-parameters" />
+      <module name="Equipe" options="-parameters" />
+      <module name="Inventaire" options="-parameters" />
+      <module name="Log" options="-parameters" />
+      <module name="Monstre" options="-parameters" />
+      <module name="Portefeuille" options="-parameters" />
+    </option>
+  </component>
+</project>

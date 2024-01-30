@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $.get("http://localhost:8080/helloTest", function(data) {
+    $.get("http://localhost:8079/helloTest", function(data) {
         $("#helloMessage").text(data);
     });
 });
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const placeholderImg = document.createElement('img');
         placeholderImg.style.maxWidth = '200px';
         placeholderImg.style.maxHeight = '200px';
-        placeholderImg.src = 'img/Albus.png'; // Ajouter le chemin de votre image placeholder
+        placeholderImg.src = 'front/img/Albus.png'; // Ajouter le chemin de votre image placeholder
         inventory.appendChild(placeholderImg);
     }
 });

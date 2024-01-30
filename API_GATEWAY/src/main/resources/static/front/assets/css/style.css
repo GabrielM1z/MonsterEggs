@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.shop_btn{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#timer {
+    margin-top: 10px;
+}
+
+.inventory {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.inventory img {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.cellar {
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 5px;
+}
