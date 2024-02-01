@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-public class JoueurController {
+public class InventaireController {
     @GetMapping("/main")
     public String main(){
         return "Hello GAB LE JOUEUR !";
