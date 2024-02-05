@@ -1,11 +1,29 @@
+
+let timer = 86400; // 24 hours in seconds
+
+function newImage(){
+    const inventory = document.querySelector('.inventory');
+    const placeholderImg = document.createElement('img');
+    placeholderImg.style.maxWidth = '200px';
+    placeholderImg.style.maxHeight = '200px';
+    placeholderImg.src = 'front/img/Albus.png'; // Ajouter le chemin de votre image placeholder
+    inventory.appendChild(placeholderImg);
+}
+
+window.onload = function(){
+   for (let i = 0; i < 10; i++) {
+       newImage()
+   }
+   createItem()
+   countdown(); // Lancer le compte à rebours au chargement de la page
+
+}
+
 $(document).ready(function() {
-    $.get("http://localhost:8079/helloTest", function(data) {
+    $.get("http://localhost:8080/Test", function(data) {
         $("#helloMessage").text(data);
     });
 });
-
-
-let timer = 86400; // 24 hours in seconds
 
 function countdown() {
     const timerElement = document.getElementById('timer');
@@ -35,16 +53,19 @@ function refreshShop() {
     alert("Le magasin a été rafraîchi!");
 }
 
-// Générer 10 images pour l'inventaire
-document.addEventListener('DOMContentLoaded', () => {
-    const inventory = document.querySelector('.inventory');
-    for (let i = 0; i < 10; i++) {
-        const placeholderImg = document.createElement('img');
-        placeholderImg.style.maxWidth = '200px';
-        placeholderImg.style.maxHeight = '200px';
-        placeholderImg.src = 'front/img/Albus.png'; // Ajouter le chemin de votre image placeholder
-        inventory.appendChild(placeholderImg);
-    }
-});
 
-countdown(); // Lancer le compte à rebours au chargement de la page
+function createItem(){
+    $.get(`http://localhost:8080/API/Boutique/CreateItem`, function(data) {
+        console.log("Retour creation =", data);
+    });
+}
+
+function buyItem(element){
+    //element.parentNode.remove();
+    element.src = "front/img/emptyShop.png";
+    var itemId = element.id;
+    console.log(itemId)
+    $.get(`http://localhost:8080/API/Boutique/BuyItem/${itemId}`, function(data) {
+        console.log("Retour click =", data);
+    });
+}
