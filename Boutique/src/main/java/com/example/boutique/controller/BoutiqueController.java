@@ -28,8 +28,8 @@ public class BoutiqueController {
     /**
      * Route de rafraichissement de la boutique
      */
-    @GetMapping("/refresh")
-    private void Refresh() {
+    @GetMapping(path="/refresh")
+    private @ResponseBody void Refresh() {
 
         // delete de tous les items de la boutique
         boutiqueService.deleteAll();
@@ -65,12 +65,12 @@ public class BoutiqueController {
     }
 
     @GetMapping("/delete/{itemId}")
-    private void deleteItem(@PathVariable int itemId) {
+    private @ResponseBody void deleteItem(@PathVariable int itemId) {
         boutiqueService.deleteById(itemId);
     }
 
     @GetMapping("/GetPrice/{itemId}")
-    public int getPrice(@PathVariable int itemId)
+    public @ResponseBody int getPrice(@PathVariable int itemId)
     {
         Boutique item = boutiqueService.getItem(itemId);
         return item.getPrice();

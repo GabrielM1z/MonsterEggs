@@ -39,7 +39,6 @@ function countdown() {
 function getDollards(){
     $.get("http://localhost:8080/API/Joueur/GetDollards", function(data) {
         $("#money").text("Dollards:"+data);
-        console.log("ééé",data)
     });
 }
 
@@ -56,8 +55,15 @@ function refreshShop() {
 
 function createItem(){
     $.get(`http://localhost:8080/API/Boutique/CreateItem`, function(data) {
-        console.log("Retour creation =", data);
+        console.log("createItem() - Retour creation =", data);
     });
+
+    setTimeout(function (){
+        $.get(`http://localhost:8080/API/Boutique/Get`, function(data) {
+            console.log("createItem() - Retour get =", data);
+        });
+    }, 150);
+
 }
 
 function buyItem(element){
@@ -80,6 +86,13 @@ function MoneyADD(){
 
 function MoneyRemove(){
     $.get(`http://localhost:8080/API/Joueur/RemoveDollards`, function(data) {
+        console.log("Retour2 =", data);
+        setTimeout(getDollards, 150);
+    });
+}
+
+function eclosion(){
+    $.get(`http://localhost:8080/API/Monstre/Creation`, function(data) {
         console.log("Retour2 =", data);
         setTimeout(getDollards, 150);
     });

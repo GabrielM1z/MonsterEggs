@@ -47,4 +47,11 @@ public class InventaireController {
         // This returns a JSON or XML with the users
         return inventaireService.getAllInventaire();
     }
+
+    @GetMapping("/get/{type}")
+    public @ResponseBody String getItem(@PathVariable String type){
+        Inventaire inventaire = inventaireService.getByType(type);
+        int qte_courante = inventaire.getQuantity();
+        return String.valueOf(qte_courante);
+    }
 }

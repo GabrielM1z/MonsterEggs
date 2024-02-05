@@ -24,6 +24,11 @@ public class gateway {
         liste.put("Joueur", 8085);
         liste.put("Monstre", 8086);
         liste.put("Log", 8087);
+
+
+        String url = "http://localhost:8085/inventaire/create/dollards/100";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getForObject(url, String.class);
     }
 
 
@@ -114,9 +119,32 @@ public class gateway {
     @GetMapping("/API/Boutique/CreateItem")
     private String CreateItem() {
         int valeur = liste.get("Boutique");
-        String url = "http://localhost:" + valeur + "/CreateItem";
+        String url = "http://localhost:" + valeur + "/boutique/refresh";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
     }
 
+    @GetMapping("/API/Boutique/Get")
+    private String GetShop() {
+        int valeur = liste.get("Boutique");
+        String url = "http://localhost:" + valeur + "/boutique/all";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping("/API/Monstre/Create")
+    private String CreateMonstre() {
+        int valeur = liste.get("Monstre");
+        String url = "http://localhost:" + valeur + "/creation";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping("/API/Joueur/GetDollards")
+    private String CreateDollards() {
+        int valeur = liste.get("Joueur");
+        String url = "http://localhost:" + valeur + "/inventaire/get/dollards";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
 }
