@@ -1,6 +1,6 @@
 package com.example.monstre.controller;
 
-import com.example.monstre.MonstreService;
+import com.example.monstre.service.MonstreService;
 import com.example.monstre.model.Monstre;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

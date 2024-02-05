@@ -1,4 +1,4 @@
-package com.example.monstre;
+package com.example.monstre.service;
 
 import com.example.monstre.model.Monstre;
 import com.example.monstre.repository.MonstreRepository;
