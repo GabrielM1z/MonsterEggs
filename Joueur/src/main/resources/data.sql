@@ -1,1 +1,1 @@
-INSERT INTO INVENTAIRE (nameObject, quantity) VALUES ('ptdrr', 34);
+INSERT INTO INVENTAIRE (type, quantity) VALUES ('ptdrr', 34);
