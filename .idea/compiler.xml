@@ -12,7 +12,6 @@
         <module name="Log" />
         <module name="Combat" />
         <module name="Boutique" />
-        <module name="Inventaire" />
         <module name="Joueur" />
         <module name="Monstre" />
         <module name="Coffre" />
@@ -20,6 +19,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Equipe" target="21" />
+      <module name="Inventaire" target="21" />
       <module name="Portefeuille" target="21" />
     </bytecodeTargetLevel>
   </component>
