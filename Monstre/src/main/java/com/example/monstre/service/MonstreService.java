@@ -1,6 +1,7 @@
 package com.example.monstre.service;
 
 import com.example.monstre.model.Monstre;
+import com.example.monstre.rabbitmq.Envoyeur;
 import com.example.monstre.repository.MonstreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,11 @@ public class MonstreService {
     @Autowired
     private MonstreRepository monstreRepository;
 
+    @Autowired
+    private Envoyeur envoyeur;
+
     public Monstre save(Monstre monstre) {
+        envoyeur.envoyer(monstre.toString());
         return monstreRepository.save(monstre);
     }
 

@@ -20,6 +20,11 @@ public class Monstre {
 
     private int xp;
 
+    @Override
+    public String toString() {
+        return id + "," + nom ;
+    }
+
     public int getId() {
         return id;
     }

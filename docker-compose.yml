@@ -56,3 +56,9 @@ services:
       context: "./Log"
     ports:
       - "8087:8087"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"

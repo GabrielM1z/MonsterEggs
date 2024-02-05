@@ -1,4 +1,4 @@
-package com.example.joueur.rabbitmq;
+package com.example.monstre.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    public Receveur getReceveur() {
-        return new Receveur();
+    public Envoyeur getEnvoyer() {
+        return new Envoyeur();
     }
 }

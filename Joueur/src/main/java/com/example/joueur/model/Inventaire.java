@@ -1,7 +1,6 @@
 package com.example.joueur.model;
 
 import jakarta.persistence.*;
-import org.springframework.context.annotation.Primary;
 
 @Entity
 public class Inventaire {
