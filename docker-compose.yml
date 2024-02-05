@@ -1,0 +1,57 @@
+services:
+
+  # API GATEWAY
+  gateway:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8080:80"
+
+  # BOUTIQUE
+  boutique:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # CAVE
+  cave:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # COFFRE
+  coffre:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # COMBAT
+  combat:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # JOUEUR
+  joueur:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # MONSTRE
+  monstre:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
+
+  # LOG
+  log:
+    image: eclipse-temurin:21-jdk-alpine
+    restart: always
+    ports:
+      - "8000:80"
