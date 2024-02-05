@@ -17,6 +17,10 @@ public class MonstreService {
         return monstreRepository.save(monstre);
     }
 
+    public void delete(int id) {
+        monstreRepository.deleteById(id);
+    }
+
     public List<Monstre> getAllMonstre() {
         return (List<Monstre>) monstreRepository.findAll();
     }
