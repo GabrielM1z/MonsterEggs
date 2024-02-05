@@ -1,57 +1,58 @@
+version: "3"
 services:
 
   # API GATEWAY
   gateway:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./API_GATEWAY"
     ports:
-      - "8080:80"
+      - "8080:8080"
 
   # BOUTIQUE
   boutique:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Boutique"
     ports:
-      - "8000:80"
+      - "8081:8081"
 
   # CAVE
   cave:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Cave"
     ports:
-      - "8000:80"
+      - "8082:8082"
 
   # COFFRE
   coffre:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Coffre"
     ports:
-      - "8000:80"
+      - "8083:8083"
 
   # COMBAT
   combat:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Combat"
     ports:
-      - "8000:80"
+      - "8084:8084"
 
   # JOUEUR
   joueur:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Joueur"
     ports:
-      - "8000:80"
+      - "8085:8085"
 
   # MONSTRE
   monstre:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Monstre"
     ports:
-      - "8000:80"
+      - "8086:8086"
 
   # LOG
   log:
-    image: eclipse-temurin:21-jdk-alpine
-    restart: always
+    build:
+      context: "./Log"
     ports:
-      - "8000:80"
+      - "8087:8087"
