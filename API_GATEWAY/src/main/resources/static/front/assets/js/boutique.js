@@ -25,7 +25,7 @@ function displayBoutique(){
             var img = document.createElement('img');
             img.classList.add('shoppicture');
             img.onclick = function() { buyItem(element,itemDiv); };
-            if (element.nom == "Oeufs"){
+            if (element.nom == "oeufs"){
                 img.src = 'front/img/oeuf.jpg';
             }else{
                 img.src = 'front/img/incubateur_vide.png';

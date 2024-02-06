@@ -17,8 +17,8 @@ public class BoutiqueController {
 
     // liste des objets achetable
     private final String[] nomItemList = {
-            "Incubateur",
-            "Oeufs"
+            "incubateur",
+            "oeufs"
     };
 
     public BoutiqueController(BoutiqueService boutiqueService) {
