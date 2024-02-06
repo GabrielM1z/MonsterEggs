@@ -2,6 +2,7 @@ package com.example.boutique.controller;
 
 import com.example.boutique.model.Boutique;
 import com.example.boutique.service.BoutiqueService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class BoutiqueController {
      * Route de rafraichissement de la boutique
      */
     @GetMapping(path="/refresh")
+    @Scheduled(fixedRate = 10000)
     private @ResponseBody void Refresh() {
 
         // delete de tous les items de la boutique

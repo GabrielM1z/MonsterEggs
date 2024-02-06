@@ -72,15 +72,32 @@ public class CaveController
 
 
     /**
+     * Route pour savoir combien d'incubateur on a
+     * @return nb d'incubateur
+     */
+    @GetMapping(path="/nbIncubateur")
+    public @ResponseBody int getNbIncubateur()
+    {
+        return caveService.getAllIncubateur().size();
+    }
+
+
+    /**
      * Route pour savoir si on peut ajouter un incubateur dans la cave
      * @return nb d'incubateur < maxIncutabeur
      */
     @GetMapping(path="/isFreeIncubateur")
     public @ResponseBody boolean isFreeIncubateur()
     {
-        return caveService. isFreeIncubateur();
+        return caveService.isFreeIncubateur();
     }
 
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(path="/checkVide/{id}")
     public @ResponseBody boolean checkVide(@PathVariable int id)
     {

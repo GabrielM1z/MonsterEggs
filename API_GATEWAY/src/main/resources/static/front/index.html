@@ -7,6 +7,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="front/assets/css/style.css">
     <link rel="icon" type="image/x-icon" href="front/img/favicon.png">
+    <script type="text/javascript" src="front/assets/js/code.js"></script>
+    <script type="text/javascript" src="front/assets/js/boutique.js"></script>
 </head>
 <body>
 <div align="center">
@@ -29,8 +31,7 @@
     <div class="container">
         <div class="Portefeuille">
             <h1 id="money">Dollards:</h1>
-            <button id="buyBtn1" onclick="MoneyADD()">ADD</button>
-            <button id="buyBtn2" onclick="MoneyRemove()">REMOVE</button>
+            <button id="buyBtn1" onclick="addOneDollards()">ADD</button>
         </div>
 
 
@@ -40,8 +41,8 @@
 
             </div>
             <div class="shop_btn">
-                <div id="timer">24:00:00</div>
-                <button id="buyBtn" onclick="refreshShop()">Acheter</button>
+                <button id="buyBtn" onclick="refreshShop()">10$</button>
+                <h4>Refresh:</h4>
             </div>
         </div>
 
@@ -81,6 +82,5 @@
         <div><button onclick="newImage()">Add</button> </div>
     </div>
 </div>
-<script type="text/javascript" src="front/assets/js/code.js"></script>
 </body>
 </html>
