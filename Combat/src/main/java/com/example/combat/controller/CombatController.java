@@ -24,16 +24,17 @@ public class CombatController {
         return "OK";
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}/{difficulter}")
     public @ResponseBody String combat(
-            @PathVariable int id
+            @PathVariable int id,
+            @PathVariable int difficulter
     )
     {
         String url = "http://localhost:8086/monstre/get/"+id;
         RestTemplate restTemplate = new RestTemplate();
         try {
             Monstre monstre = restTemplate.getForObject(url, Monstre.class);
-            String str = combatService.combat(monstre);
+            String str = combatService.combat(monstre, difficulter);
             return str;
         } catch (Exception e) {
             System.err.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
