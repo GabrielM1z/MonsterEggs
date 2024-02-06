@@ -279,7 +279,7 @@ public class gateway {
         }
         if (!testCoffre())
         {
-            return "Joueur indisponible (Equipe et Inventaire)";
+            return "Coffre indisponible";
         }
 
         // Recup les info du monstres à déplacer
