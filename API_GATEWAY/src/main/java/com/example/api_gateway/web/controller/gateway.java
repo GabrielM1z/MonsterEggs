@@ -160,16 +160,48 @@ public class gateway {
     }
 
 
+
     /**
-     *
+     *  fonction qui permet de refresh la boutique à la demande du joueur (10$)
      * @return
      */
-    @GetMapping("/API/Boutique/CreateItem")
-    private String CreateItem() {
-        int valeur = liste.get("Boutique");
-        String url = "http://localhost:" + valeur + "/boutique/refresh";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+    @GetMapping("/API/Boutique/refresh")
+    private String refresh() {
+        int idJoueur = liste.get("Joueur");
+        int idBoutique = liste.get("Boutique");
+
+        // si la boutique est down
+        if (!testBoutique())
+        {
+            return "Boutique indisponible";
+        }
+
+        // si la boutique est down
+        if (!testJoueur())
+        {
+            return "Boutique indisponible";
+        }
+
+        // On recup notre quantité de dollards
+        String urlGetDollards = "http://localhost:" + idJoueur + "/inventaire/get/dollards";
+        RestTemplate restGetDollards = new RestTemplate();
+        int dollards = restGetDollards.getForObject(urlGetDollards, Integer.class);
+
+        // Si on a moins de dollards que 10 dollards
+        if(dollards<10)
+        {
+            return  "Vous n'avez pas assez de dollards.";
+        }
+        // Sinon
+        else {
+            String urlRemoveDollards = "http://localhost:" + idJoueur + "/inventaire/remove/dollards/" + 10;
+            new RestTemplate().getForObject(urlRemoveDollards, String.class);
+
+            // On supprime l'item acheté de la boutique
+            String urlRefresh = "http://localhost:" + idBoutique + "/boutique/refresh";
+            new RestTemplate().getForObject(urlRefresh, String.class);
+            return  "ok";
+        }
     }
 
 
@@ -194,9 +226,17 @@ public class gateway {
 //    }
 
     @GetMapping("/API/Joueur/GetDollards")
-    private String GetDollards() {
+    private String getDollards() {
         int valeur = liste.get("Joueur");
         String url = "http://localhost:" + valeur + "/inventaire/get/dollards";
+        RestTemplate restTemplate = new RestTemplate();
+        return   restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping("/API/Joueur/addOneDollards")
+    private String addOneDollards() {
+        int valeur = liste.get("Joueur");
+        String url = "http://localhost:" + valeur + "/inventaire/add/dollards/1";
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
     }
