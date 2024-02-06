@@ -21,6 +21,7 @@ public class CaveController
         this.caveService = caveService;
     }
 
+
     /**
      * Route de vérification service up
      */
@@ -34,10 +35,11 @@ public class CaveController
      * @return liste d'incubateur
      */
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<Incubateur> getAll() {
-        // This returns a JSON or XML with the users
+    public @ResponseBody Iterable<Incubateur> getAll()
+    {
         return caveService.getAllIncubateur();
     }
+
 
     /**
      * Route pour ajouter un incubateur dans la cave
@@ -46,28 +48,28 @@ public class CaveController
     @GetMapping(path="/add")
     public @ResponseBody Incubateur addIncubateur()
     {
+        // creation de l'incubateur
         final Incubateur incubateur = new Incubateur();
 
-        Random rand = new Random();
-        float tempsRand = 1 + rand.nextFloat() * (10 - 1);
-
+        // on set les info de l'incubateur vide
         incubateur.setOeuf(false);
         incubateur.setTemps(0);
 
+        // on return l'incubateur créé
         return caveService.save(incubateur);
     }
+
 
     /**
      * Route pour supprimer un incubateur avec son id
      * @param id id de l'incubateur
      */
     @GetMapping(path="/suppression/{id}")
-    public @ResponseBody void suppressionIncubateur(
-            @PathVariable int id
-    )
+    public @ResponseBody void suppressionIncubateur(@PathVariable int id)
     {
         caveService.delete(id);
     }
+
 
     /**
      * Route pour compter le nombre d'incubateur dans la cave
@@ -80,29 +82,36 @@ public class CaveController
     }
 
     @GetMapping(path="/checkVide/{id}")
-    public @ResponseBody boolean checkVide(
-            @PathVariable int id
-    )
+    public @ResponseBody boolean checkVide(@PathVariable int id)
     {
+        // on recup l'incubateur
         Incubateur incubateur = caveService.getIncubateurById(id);
+
+        // return true si vide, false si oeuf
         return !incubateur.isOeuf();
     }
 
+
+    /**
+     * Route pour ajouter un oeuf à un incubateur
+     * @param idIncubateur
+     * @return
+     */
     @GetMapping(path="/addOeuf/{idIncubateur}")
-    public @ResponseBody Incubateur ajouterOeufIncubateur(
-            @PathVariable int idIncubateur
-    )
+    public @ResponseBody Incubateur ajouterOeufIncubateur(@PathVariable int idIncubateur)
     {
+        // on recup l'incubateur grace à l'id
         Incubateur incubateur = caveService.getIncubateurById(idIncubateur);
 
+        // on set l'oeuf à true
         incubateur.setOeuf(true);
 
+        // on set un temps d'éclosion aléatoire
         Random rand = new Random();
         float tempsRand = 1 + rand.nextFloat() * (10 - 1);
         incubateur.setTemps(tempsRand);
 
+        // on return l'incubateur modifié
         return caveService.save(incubateur);
     }
-
-
 }

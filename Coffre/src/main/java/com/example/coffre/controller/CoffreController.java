@@ -28,8 +28,8 @@ public class CoffreController {
      * @return tout les monstres
      */
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<MonstreCoffre> getAll() {
-        // This returns a JSON or XML with the users
+    public @ResponseBody Iterable<MonstreCoffre> getAll()
+    {
         return coffreService.getAllMonstreCoffre();
     }
 
@@ -44,7 +44,8 @@ public class CoffreController {
     public @ResponseBody MonstreCoffre ajouterMonstre(
             @PathVariable int id,
             @PathVariable String nom
-    ){
+    )
+    {
         final MonstreCoffre monstreCoffre = new MonstreCoffre();
 
         monstreCoffre.setId(id);
@@ -55,15 +56,12 @@ public class CoffreController {
 
 
     /**
-     * Supprime un monstre du coffre
+     * Supprimer un monstre du coffre
      * @param id
      */
     @GetMapping(path="/remove/{id}")
-    public @ResponseBody void supprimerMonstre(
-            @PathVariable int id
-    ){
+    public @ResponseBody void supprimerMonstre(@PathVariable int id)
+    {
         coffreService.delete(id);
     }
-
-
 }
