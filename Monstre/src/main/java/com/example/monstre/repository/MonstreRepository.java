@@ -1,4 +1,4 @@
-package com.example.monstre;
+package com.example.monstre.repository;
 
 import com.example.monstre.model.Monstre;
 import org.springframework.data.repository.CrudRepository;

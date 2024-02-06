@@ -1,8 +1,8 @@
 package com.example.monstre.service;
 
 import com.example.monstre.model.Monstre;
-import com.example.monstre.rabbitmq.Envoyeur;
 import com.example.monstre.repository.MonstreRepository;
+import com.example.monstre.rabbitmq.Envoyeur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
