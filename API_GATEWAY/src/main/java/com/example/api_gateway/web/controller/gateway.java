@@ -16,6 +16,8 @@ public class gateway {
     private final Map<String, Integer> liste = new HashMap<>();
 
     public gateway() {
+
+        // liste des microservices
         liste.put("API_Gateway", 8080);
         liste.put("Boutique", 8081);
         liste.put("Cave", 8082);
@@ -25,7 +27,7 @@ public class gateway {
         liste.put("Monstre", 8086);
         liste.put("Log", 8087);
 
-
+        // mettre de l'argent à la base
         String url = "http://localhost:8085/inventaire/create/dollards/100";
         RestTemplate restTemplate = new RestTemplate();
         try {
@@ -46,6 +48,7 @@ public class gateway {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
     }
+
 
     /**
      *          Route de vérification services up
@@ -147,63 +150,108 @@ public class gateway {
     }
 
 
-
-
-
-
-
-
-
-
+    /**
+     * Route pour l'achat d'un item dans la boutique
+     * (achat de : oeuf / incubateur)
+     * @param itemId
+     * @return
+     */
     @GetMapping("/API/Boutique/BuyItem/{itemId}")
-    private String BuyItem(@PathVariable String itemId) {
-        if (testBoutique()) {
-            int idBoutique = liste.get("Boutique");
-            int idJoueur = liste.get("Joueur");
-            //Get Price Item
-            String urlGetPrice = "http://localhost:" + idBoutique + "/boutique/GetPrice/" + itemId;
-            RestTemplate restGetPrice = new RestTemplate();
-            int price = restGetPrice.getForObject(urlGetPrice, Integer.class);
-
-            //Get Quantity Item
-            String urlGetQuantity = "http://localhost:" + idBoutique + "/boutique/GetQuantity/" + itemId;
-            RestTemplate restGetQuantity = new RestTemplate();
-            int quantity = restGetQuantity.getForObject(urlGetQuantity, Integer.class);
-
-            //Get Type Item
-            String urlGetType = "http://localhost:" + idBoutique + "/boutique/GetType/" + itemId;
-            RestTemplate restGetType = new RestTemplate();
-            String type = restGetType.getForObject(urlGetType, String.class);
-
-            //Check dollards
-            String urlGetDollards = "http://localhost:" + idJoueur + "/inventaire/get/dollards";
-            RestTemplate restGetDollards = new RestTemplate();
-            int dollards = restGetDollards.getForObject(urlGetDollards, Integer.class);
-
-            String result = "";
-            if(dollards<price){
-                result = "Vous n'avez pas assez de dollards.";
-            }else{
-                // Remove dollards
-                String urlRemoveDollards = "http://localhost:" + idJoueur + "/inventaire/remove/dollards/" + price;
-                new RestTemplate().getForObject(urlRemoveDollards, String.class);
-
-                // Remove Item boutique
-                String urlRemoveItem = "http://localhost:" + idBoutique + "/boutique/delete/" + itemId;
-                new RestTemplate().getForObject(urlRemoveItem, String.class);
-
-                // Add Item inventaire
-                String urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
-                new RestTemplate().getForObject(urlAddItem, String.class);
-
-                result = "ok";
-            }
-
-            return result;
-        } else {
+    private String BuyItem(@PathVariable String itemId)
+    {
+        // si la boutique est down
+        if (!testBoutique()){
             return "Boutique indisponible";
         }
+
+        // si le joueur est down
+        if (!testJoueur()){
+            return "Joueur indisponible";
+        }
+
+
+        int idBoutique = liste.get("Boutique");
+        int idJoueur = liste.get("Joueur");
+        int idCave = liste.get("Cave");
+
+        // On recup le prix de l'item
+        String urlGetPrice = "http://localhost:" + idBoutique + "/boutique/GetPrice/" + itemId;
+        RestTemplate restGetPrice = new RestTemplate();
+        int price = restGetPrice.getForObject(urlGetPrice, Integer.class);
+
+        // On recup la quantité de l'item
+        String urlGetQuantity = "http://localhost:" + idBoutique + "/boutique/GetQuantity/" + itemId;
+        RestTemplate restGetQuantity = new RestTemplate();
+        int quantity = restGetQuantity.getForObject(urlGetQuantity, Integer.class);
+
+        // On recup le type de l'item
+        String urlGetType = "http://localhost:" + idBoutique + "/boutique/GetType/" + itemId;
+        RestTemplate restGetType = new RestTemplate();
+        String type = restGetType.getForObject(urlGetType, String.class);
+
+        // On recup notre quantité de dollards
+        String urlGetDollards = "http://localhost:" + idJoueur + "/inventaire/get/dollards";
+        RestTemplate restGetDollards = new RestTemplate();
+        int dollards = restGetDollards.getForObject(urlGetDollards, Integer.class);
+
+        // Si on a moins de dollards que le prix de l'item
+        if(dollards<price)
+        {
+            return  "Vous n'avez pas assez de dollards.";
+        }
+        // Sinon
+        else
+        {
+            String urlAddItem = "";
+            switch (type)
+            {
+                // Si l'item est un incubateur
+                case "incubateur":
+
+                    // on vérifie si la cave est down
+                    if (!testCave())
+                    {
+                        return "Cave indisponible";
+                    }
+
+                    // On l'ajoute à la cave
+                    urlAddItem = "http://localhost:" + idCave + "/cave/add";
+                    new RestTemplate().getForObject(urlAddItem, String.class);
+                    break;
+
+                // Si l'item est un oeuf
+                case "oeuf":
+                    // On l'ajoute à l'inventaire
+                    urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
+                    new RestTemplate().getForObject(urlAddItem, String.class);
+                    break;
+
+                // Dans le cas ou c'est autre chose
+                case null:
+                    break;
+                default:
+                    // on ne fait rien
+                    break;
+            }
+
+            // On supprime nos dollards (autant que le prix de l'item)
+            String urlRemoveDollards = "http://localhost:" + idJoueur + "/inventaire/remove/dollards/" + price;
+            new RestTemplate().getForObject(urlRemoveDollards, String.class);
+
+            // On supprime l'item acheté de la boutique
+            String urlRemoveItem = "http://localhost:" + idBoutique + "/boutique/delete/" + itemId;
+            new RestTemplate().getForObject(urlRemoveItem, String.class);
+
+            // On return ok
+            return "ok";
+        }
     }
+
+
+    /**
+     *
+     * @return
+     */
     @GetMapping("/API/Boutique/CreateItem")
     private String CreateItem() {
         int valeur = liste.get("Boutique");
@@ -212,6 +260,11 @@ public class gateway {
         return restTemplate.getForObject(url, String.class);
     }
 
+
+    /**
+     *
+     * @return
+     */
     @GetMapping("/API/Boutique/Get")
     private String GetShop() {
         int valeur = liste.get("Boutique");
@@ -220,13 +273,13 @@ public class gateway {
         return restTemplate.getForObject(url, String.class);
     }
 
-    @GetMapping("/API/Monstre/Create")
-    private String CreateMonstre() {
-        int valeur = liste.get("Monstre");
-        String url = "http://localhost:" + valeur + "/creation";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
-    }
+//    @GetMapping("/API/Monstre/Create")
+//    private String CreateMonstre() {
+//        int valeur = liste.get("Monstre");
+//        String url = "http://localhost:" + valeur + "/creation";
+//        RestTemplate restTemplate = new RestTemplate();
+//        return restTemplate.getForObject(url, String.class);
+//    }
 
     @GetMapping("/API/Joueur/GetDollards")
     private String GetDollards() {
