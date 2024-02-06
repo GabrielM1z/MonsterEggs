@@ -7,25 +7,18 @@ function getBoutique(){
         var testShop = JSON.parse(data);
         if (!isEqual(shop, testShop)) {
             shop = testShop;
-            display_boutique();
+            displayBoutique();
         }
     });
 }
 
-// Fonction pour vérifier l'égalité de deux objets JSON
-function isEqual(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-}
-
 // Fonction pour afficher la boutique
-function display_boutique(){
+function displayBoutique(){
     $.get(`http://localhost:8080/API/Boutique/Get`, function(data) {
         var elements = JSON.parse(data);
-
         var shopDiv = document.querySelector('.sousshop');
-        console.log(elements)
-        document.querySelector('.sousshop').innerHTML = ''
-            elements.forEach(function(element) {
+        shopDiv.innerHTML = '';
+        elements.forEach(function(element) {
             var itemDiv = document.createElement('div');
             itemDiv.classList.add('item');
 
@@ -33,9 +26,9 @@ function display_boutique(){
             img.classList.add('shoppicture');
             img.onclick = function() { buyItem(element,itemDiv); };
             if (element.nom == "Oeufs"){
-                img.src = 'front/img/O1.png';
+                img.src = 'front/img/oeuf.jpg';
             }else{
-                img.src = 'front/img/I1.png';
+                img.src = 'front/img/incubateur_vide.png';
             }
 
 

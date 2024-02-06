@@ -252,6 +252,13 @@ public class gateway {
     }
 
 
+    @GetMapping("/API/Inventaire/Get")
+    private String getInventaire() {
+        int valeur = liste.get("Joueur");
+        String url = "http://localhost:" + valeur + "/inventaire/all";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
 
     ////////////////////////////////////////////////////////////
     //                  OPERATIONS MONSTRES                   //

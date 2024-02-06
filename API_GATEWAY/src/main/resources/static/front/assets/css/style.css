@@ -4,17 +4,18 @@
     align-items: center;
 }
 
-.shop {
+.shop,
+.poche{
     display: flex;
     flex-wrap: wrap;
-    padding-bottom: 75px;
+    padding-bottom: 100px;
 }
 .sousshop {
     display: flex;
     flex-wrap: wrap;
 }
 
-.shoppicture{
+.shoppicture, .itemPoche{
     max-width: 200px;
     max-height: 200px;
 }
