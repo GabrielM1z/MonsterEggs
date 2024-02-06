@@ -18,6 +18,7 @@ public class Receveur {
     public void recevoir(String monstre) throws InterruptedException {
         List<Equipe> monstresEquipe = equipeService.getAllEquipe();
         if (monstresEquipe.size() >= equipeService.getMaxMonstres()) {
+            Thread.sleep(2000);
             throw new InterruptedException("L'equipe est pleine");
         }
         String[] monstreInfo = monstre.split(",");

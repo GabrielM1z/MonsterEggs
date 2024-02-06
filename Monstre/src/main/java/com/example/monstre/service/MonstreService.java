@@ -18,8 +18,9 @@ public class MonstreService {
     private Envoyeur envoyeur;
 
     public Monstre save(Monstre monstre) {
-        envoyeur.envoyer(monstre.toString());
-        return monstreRepository.save(monstre);
+        Monstre newMonstre = monstreRepository.save(monstre);
+        envoyeur.envoyer(newMonstre.toString());
+        return newMonstre;
     }
 
     public void delete(int id) {
