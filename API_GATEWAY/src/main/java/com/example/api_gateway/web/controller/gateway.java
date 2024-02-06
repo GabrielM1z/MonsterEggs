@@ -247,6 +247,36 @@ public class gateway {
     }
 
 
+    /**
+     * Route pour relacher un Monstre depuis l'Equipe
+     * @return
+     */
+    @GetMapping("/API/RelacherMonstreEquipe/{idMonstre}")
+    private String relacherMonstreEquipe(@PathVariable int idMonstre)
+    {
+        // recup les ports des micro-services
+        int idJoueur = liste.get("Joueur");
+
+        // test si les micro-services sont up
+        if (!testJoueur())
+        {
+            return "Joueur indisponible (Equipe et Inventaire)";
+        }
+
+        // Recup les info du monstres à déplacer
+        String urlGetMonstre = "http://localhost:" + idJoueur + "/equipe/get/" + idMonstre;
+        RestTemplate restGetMonstre = new RestTemplate();
+        String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
+
+        // Supprimer monstre de l'équipe
+        String urlDeleteMonstreEquipe = "http://localhost:" + idJoueur + "/equipe/remove/" + idMonstre;
+        new RestTemplate().getForObject(urlDeleteMonstreEquipe, String.class);
+
+        // return message sucess
+        return "Le Monstre (" + idMonstre + " : " + nomMonstre + ") à été relaché";
+    }
+
+
 
 
     ////////////////////////////////////////////////////////////
