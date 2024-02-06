@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EquipeService {
@@ -28,5 +29,10 @@ public class EquipeService {
     public void delete(int id)
     {
         monstreEquipeRepository.deleteById(id);
+    }
+
+    public MonstreEquipe get(int id){
+        Optional<MonstreEquipe> monstreEquipe =  monstreEquipeRepository.findById(id);
+        return monstreEquipe.orElse(null);
     }
 }

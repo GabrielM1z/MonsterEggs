@@ -52,6 +52,26 @@ public class EquipeController {
 
 
     /**
+     * Route pour récupérer le nom d'un monstre en fonction de son id
+     * @param id l'id du monstre
+     * @return le monstre
+     */
+    @GetMapping(path="/get/{id}")
+    public @ResponseBody String getNomMonstre(
+            @PathVariable int id
+    )
+    {
+        MonstreEquipe monstreEquipe = equipeService.get(id);
+        if (monstreEquipe != null){
+            return monstreEquipe.getNom();
+        }
+        else {
+            return null;
+        }
+    }
+
+
+    /**
      * Supprimer un monstre de l'équipe
      * @param id
      */

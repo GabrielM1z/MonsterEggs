@@ -13,10 +13,12 @@ import java.util.Map;
 @CrossOrigin
 public class gateway {
 
+    // Attributs
     private final Map<String, Integer> liste = new HashMap<>();
 
-    public gateway() {
-
+    // Constructeur
+    public gateway()
+    {
         // liste des microservices
         liste.put("API_Gateway", 8080);
         liste.put("Boutique", 8081);
@@ -51,6 +53,9 @@ public class gateway {
 
 
 
+    ////////////////////////////////////////////////////////////
+    //                     Route BOUTIQUE                     //
+    ////////////////////////////////////////////////////////////
 
 
     /**
@@ -237,6 +242,49 @@ public class gateway {
     }
 
 
+
+    ////////////////////////////////////////////////////////////
+    //                   TRANSFERT MONSTRES                   //
+    ////////////////////////////////////////////////////////////
+
+
+    /**
+     * Route pour transférer un Monstre de l'Equipe vers le Coffre
+     * @return
+     */
+    @GetMapping("/API/TransfertEquipeCoffre/{idMonstre}")
+    private String transfertEquipeCoffre(@PathVariable int idMonstre)
+    {
+        // recup les ports des micro-services
+        int idJoueur = liste.get("Joueur");
+        int idCoffre = liste.get("Coffre");
+
+        // test si les micro-services sont up
+        if (!testJoueur())
+        {
+            return "Joueur indisponible (Equipe et Inventaire)";
+        }
+        if (!testCoffre())
+        {
+            return "Joueur indisponible (Equipe et Inventaire)";
+        }
+
+        // Recup les info du monstres à déplacer
+        String urlGetMonstre = "http://localhost:" + idJoueur + "/equipe/get/" + idMonstre;
+        RestTemplate restGetMonstre = new RestTemplate();
+        String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
+
+        // Ajouter monstres au coffre
+        String urlAddMonstreCoffre = "http://localhost:" + idCoffre + "/add/" + idMonstre + "/" + nomMonstre;
+        new RestTemplate().getForObject(urlAddMonstreCoffre, String.class);
+
+        // Supprimer monstre de l'équipe
+        String urlDeleteMonstreEquipe = "http://localhost:" + idJoueur + "/equipe/remove/" + idMonstre;
+        new RestTemplate().getForObject(urlDeleteMonstreEquipe, String.class);
+
+        // return message sucess
+        return "Tranfert du monstre (" + idMonstre + " : " + nomMonstre + ") réussi";
+    }
 
 
 
