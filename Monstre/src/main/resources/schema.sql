@@ -1,5 +1,7 @@
+-- on suppr la table si elle existe
 DROP TABLE IF EXISTS MONSTRE;
 
+-- creation du sequence pour l'attribution des id
 CREATE SEQUENCE "MONSTRE_SEQ"
     MINVALUE 1
     MAXVALUE 99999
@@ -8,6 +10,7 @@ CREATE SEQUENCE "MONSTRE_SEQ"
     NOCACHE
     NOCYCLE;
 
+-- creation de la table MONSTRE
 CREATE TABLE MONSTRE (
       id INT NOT NULL DEFAULT nextval('MONSTRE_SEQ') PRIMARY KEY,
       nom VARCHAR(6) NOT NULL,
