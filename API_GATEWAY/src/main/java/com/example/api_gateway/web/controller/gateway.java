@@ -126,13 +126,13 @@ public class gateway {
                         return "Cave indisponible";
                     }
 
-                    // On recup le nombre d'incubateur dans la cave
-                    String urlGetNbIncubateur = "http://localhost:" + idCave + "/cave/nbIncubateur";
+                    // On cherche à savoir si on peut acheter un nouveau incubateur
+                    String urlGetNbIncubateur = "http://localhost:" + idCave + "/cave/isFreeIncubateur";
                     RestTemplate restGetNbIncubateur = new RestTemplate();
-                    int nbIncubateur = restGetNbIncubateur.getForObject(urlGetNbIncubateur, Integer.class);
+                    boolean isFreeIncubateur = restGetNbIncubateur.getForObject(urlGetNbIncubateur, Boolean.class);
 
-                    if (nbIncubateur >= 6){
-                        return "Impossible d'acheter l'incubateur vous en avez atteint la limite du nombre d'incubateur (6)";
+                    if (!isFreeIncubateur){
+                        return "Impossible d'acheter l'incubateur vous en avez atteint la limite";
                     }
 
                     // On l'ajoute à la cave
@@ -140,19 +140,15 @@ public class gateway {
                     new RestTemplate().getForObject(urlAddItem, String.class);
                     break;
 
-                // Si l'item est un oeuf
-                case "oeuf":
-
-                    // On l'ajoute à l'inventaire
-                    urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
-                    new RestTemplate().getForObject(urlAddItem, String.class);
-                    break;
-
                 // Dans le cas ou c'est autre chose
                 case null:
                     break;
+
+                // Si l'item est un oeuf
                 default:
-                    // on ne fait rien
+                    // On l'ajoute à l'inventaire
+                    urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
+                    new RestTemplate().getForObject(urlAddItem, String.class);
                     break;
             }
 
