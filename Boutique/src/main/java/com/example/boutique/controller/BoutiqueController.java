@@ -20,10 +20,10 @@ public class BoutiqueController {
             "Oeufs"
     };
 
-
     public BoutiqueController(BoutiqueService boutiqueService) {
         this.boutiqueService = boutiqueService;
     }
+
 
     /**
      * Route de rafraichissement de la boutique
@@ -60,16 +60,31 @@ public class BoutiqueController {
         }
     }
 
+    /**
+     * Route pour récupérer tout les item de la boutique
+     * @return
+     */
     @GetMapping("/all")
     public @ResponseBody Iterable<Boutique> getAll() {
         return boutiqueService.getAllBoutique();
     }
 
+
+    /**
+     * Route pour supprimer un item de la boutique par son id
+     * @param itemId
+     */
     @GetMapping("/delete/{itemId}")
     private @ResponseBody void deleteItem(@PathVariable int itemId) {
         boutiqueService.deleteById(itemId);
     }
 
+
+    /**
+     * Route pour connaitre le prix d'un item de la boutique
+     * @param itemId id de l'item
+     * @return
+     */
     @GetMapping("/GetPrice/{itemId}")
     public @ResponseBody int getPrice(@PathVariable int itemId)
     {
