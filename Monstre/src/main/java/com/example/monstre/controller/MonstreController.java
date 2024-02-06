@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -36,31 +37,6 @@ public class MonstreController {
     }
 
     /**
-     * Route de création personnalisé du monstre
-     * @param nom nom du monstre
-     * @param attaque attaque du monstre
-     * @param level niveau du monstre
-     * @param xp experience du monstre
-     * @return monstre créé
-     */
-    @GetMapping(path="/add/{nom}/{attaque}/{level}/{xp}") // Map ONLY GET Requests
-    public @ResponseBody Monstre addNewMonstreGet(
-            @PathVariable String nom,
-            @PathVariable int attaque,
-            @PathVariable int level,
-            @PathVariable int xp
-    ){
-        final Monstre monstre = new Monstre();
-
-        monstre.setNom(nom);
-        monstre.setAttaque(attaque);
-        monstre.setLevel(level);
-        monstre.setXp(xp);
-
-        return monstreService.save(monstre);
-    }
-
-    /**
      * Route de création aléatoire de monstres
      */
     @GetMapping(path="/creation")
@@ -71,7 +47,7 @@ public class MonstreController {
         Random rand = new Random();
         String nom = nomMonstreList.get(rand.nextInt(nomMonstreList.size()));
         monstre.setNom(nom);
-        monstre.setAttaque(1);
+        monstre.setAttaque(rand.nextInt(10));
         monstre.setLevel(1);
         monstre.setXp(0);
         return monstreService.save(monstre);
@@ -93,6 +69,34 @@ public class MonstreController {
     public @ResponseBody Iterable<Monstre> getAll() {
         // This returns a JSON or XML with the users
         return monstreService.getAllMonstre();
+    }
+
+    /**
+     * Route de récupération d'un monstre
+     * @param id du monstre qui va etre récupérer
+     */
+    @GetMapping(path="/get/{id}")
+    public @ResponseBody Optional<Monstre> getById(
+            @PathVariable int id
+    )
+    {
+        return monstreService.getById(id);
+    }
+
+    @GetMapping(path="/xp/{id}/{xp}")
+    public @ResponseBody void getById(
+            @PathVariable int xp,
+            @PathVariable int id
+    )
+    {
+        monstreService.upXP(id, xp);
+    }
+
+    @GetMapping(path="/getRandomMonstre")
+    public @ResponseBody Monstre getRandomMonstre(
+    )
+    {
+        return monstreService.getRandomMonstre();
     }
 }
 

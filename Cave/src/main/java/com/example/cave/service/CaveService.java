@@ -51,8 +51,6 @@ public class CaveService {
         for (Incubateur incubateur : listIncubateur) {
             if(incubateur.hasOeuf()){
                 if(LocalDateTime.now().isAfter(incubateur.getDateEclosion())){
-                    for(int i =0; i<100;i++)
-                        System.out.println("Ca ecloooooo !!!");
                     String url = "http://localhost:8086/monstre/creation";
                     RestTemplate restTemplate = new RestTemplate();
                     try {
