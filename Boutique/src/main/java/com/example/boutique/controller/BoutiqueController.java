@@ -90,12 +90,31 @@ public class BoutiqueController {
     /**
      * Route pour connaitre le prix d'un item de la boutique
      * @param itemId id de l'item
-     * @return
      */
     @GetMapping("/GetPrice/{itemId}")
     public @ResponseBody int getPrice(@PathVariable int itemId)
     {
         Boutique item = boutiqueService.getItem(itemId);
         return item.getPrice();
+    }
+
+    /**
+     * Get le type/nom d'un item (oeuf, dollards, ...)
+     */
+    @GetMapping("/GetType/{itemId}")
+    public @ResponseBody String getNom(@PathVariable int itemId)
+    {
+        Boutique item = boutiqueService.getItem(itemId);
+        return item.getNom();
+    }
+
+    /**
+     * Get la quantité d'un item
+     */
+    @GetMapping("/GetQuantity/{itemId}")
+    public @ResponseBody int getQuantity(@PathVariable int itemId)
+    {
+        Boutique item = boutiqueService.getItem(itemId);
+        return item.getQuantity();
     }
 }

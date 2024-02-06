@@ -1,12 +1,10 @@
 package com.example.combat.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
-@CrossOrigin
+@Controller
+@RequestMapping(path="/combat")
 public class CombatController {
     /**
      * Route de vérification service up

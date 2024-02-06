@@ -92,44 +92,49 @@ function createItem(){
             var shopDiv = document.querySelector('.sousshop');
 
             elements.forEach(function(element) {
-                // Création d'une nouvelle div avec la classe item
                 var itemDiv = document.createElement('div');
                 itemDiv.classList.add('item');
 
-                // Création d'une image avec la classe shoppicture
+
                 var img = document.createElement('img');
                 img.classList.add('shoppicture');
-                img.onclick = function() { buyItem(this); }; // Définition de l'événement onclick
+                img.onclick = function() { buyItem(element,itemDiv); };
                 if (element.nom == "Oeufs"){
-                    img.src = 'front/img/O1.png'; // Chemin de l'image
+                    img.src = 'front/img/O1.png';
                 }else{
-                    img.src = 'front/img/I1.png'; // Chemin de l'image
+                    img.src = 'front/img/I1.png';
                 }
 
-                // Création d'un titre avec la quantité
-                var title = document.createElement('h4');
-                title.textContent = element.quantity + ' ' + element.nom;
 
-                // Ajout de l'image et du titre à la div item
+                var title = document.createElement('h4');
+                title.textContent = element.quantity + ' ' + element.nom + ' ' + element.price + '$';
+
+
+
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(title);
 
-                // Ajout de la div item à la div shop
+
                 shopDiv.appendChild(itemDiv);
             });
         });
-    }, 150);
+    }, 100);
 
 }
 
-function buyItem(element){
-    //element.parentNode.remove();
-    element.src = "front/img/emptyShop.png";
-    var itemId = element.id;
-    console.log(itemId)
+function buyItem(element,itemDiv){
+    itemId = element.id;
+    console.log(element)
+
     $.get(`http://localhost:8080/API/Boutique/BuyItem/${itemId}`, function(data) {
-        console.log("Retour click =", data);
+        if(data == "ok"){
+            itemDiv.remove();
+            getDollards();
+        }else{
+            alert(data)
+        }
     });
+
 }
 
 function MoneyADD(){

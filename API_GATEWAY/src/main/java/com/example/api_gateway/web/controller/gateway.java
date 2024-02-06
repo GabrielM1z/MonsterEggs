@@ -107,6 +107,45 @@ public class gateway {
         return true;
     }
 
+    @GetMapping("/Joueur")
+    public Boolean testJoueur() {
+        int valeur = liste.get("Joueur");
+        String url = "http://localhost:" + valeur + "/inventaire/main";
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @GetMapping("/Log")
+    public Boolean testLog() {
+        int valeur = liste.get("Log");
+        String url = "http://localhost:" + valeur + "/log/main";
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @GetMapping("/Monstre")
+    public Boolean testMonstre() {
+        int valeur = liste.get("Monstre");
+        String url = "http://localhost:" + valeur + "/monstre/main";
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 
@@ -118,10 +157,52 @@ public class gateway {
 
     @GetMapping("/API/Boutique/BuyItem/{itemId}")
     private String BuyItem(@PathVariable String itemId) {
-        int valeur = liste.get("Boutique");
-        String url = "http://localhost:" + valeur + "/BuyItem/" + itemId;
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        if (testBoutique()) {
+            int idBoutique = liste.get("Boutique");
+            int idJoueur = liste.get("Joueur");
+            //Get Price Item
+            String urlGetPrice = "http://localhost:" + idBoutique + "/boutique/GetPrice/" + itemId;
+            RestTemplate restGetPrice = new RestTemplate();
+            int price = restGetPrice.getForObject(urlGetPrice, Integer.class);
+
+            //Get Quantity Item
+            String urlGetQuantity = "http://localhost:" + idBoutique + "/boutique/GetQuantity/" + itemId;
+            RestTemplate restGetQuantity = new RestTemplate();
+            int quantity = restGetQuantity.getForObject(urlGetQuantity, Integer.class);
+
+            //Get Type Item
+            String urlGetType = "http://localhost:" + idBoutique + "/boutique/GetType/" + itemId;
+            RestTemplate restGetType = new RestTemplate();
+            String type = restGetType.getForObject(urlGetType, String.class);
+
+            //Check dollards
+            String urlGetDollards = "http://localhost:" + idJoueur + "/inventaire/get/dollards";
+            RestTemplate restGetDollards = new RestTemplate();
+            int dollards = restGetDollards.getForObject(urlGetDollards, Integer.class);
+
+            String result = "";
+            if(dollards<price){
+                result = "Vous n'avez pas assez de dollards.";
+            }else{
+                // Remove dollards
+                String urlRemoveDollards = "http://localhost:" + idJoueur + "/inventaire/remove/dollards/" + price;
+                new RestTemplate().getForObject(urlRemoveDollards, String.class);
+
+                // Remove Item boutique
+                String urlRemoveItem = "http://localhost:" + idBoutique + "/boutique/delete/" + itemId;
+                new RestTemplate().getForObject(urlRemoveItem, String.class);
+
+                // Add Item inventaire
+                String urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
+                new RestTemplate().getForObject(urlAddItem, String.class);
+
+                result = "ok";
+            }
+
+            return result;
+        } else {
+            return "Boutique indisponible";
+        }
     }
     @GetMapping("/API/Boutique/CreateItem")
     private String CreateItem() {
@@ -148,7 +229,7 @@ public class gateway {
     }
 
     @GetMapping("/API/Joueur/GetDollards")
-    private String CreateDollards() {
+    private String GetDollards() {
         int valeur = liste.get("Joueur");
         String url = "http://localhost:" + valeur + "/inventaire/get/dollards";
         RestTemplate restTemplate = new RestTemplate();

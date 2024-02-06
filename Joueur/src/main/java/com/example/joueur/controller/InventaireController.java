@@ -15,15 +15,42 @@ public class InventaireController {
         this.inventaireService = inventaireService;
     }
 
+    /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
+
     @GetMapping("/add/{type}/{qte}")
     public @ResponseBody Inventaire addItem(
             @PathVariable String type,
             @PathVariable int qte
     )
     {
+        int qte_courante = 0;
+        try {
+            Inventaire inventaire = inventaireService.getByType(type);
+            qte_courante = inventaire.getQuantity();
+
+            int res = qte + qte_courante;
+            inventaire.setQuantity(res);
+            return inventaireService.save(inventaire);
+        }catch (Exception e){
+            return createItem(type,qte);
+        }
+    }
+
+    @GetMapping("/remove/{type}/{qte}")
+    public @ResponseBody Inventaire removeItem(
+            @PathVariable String type,
+            @PathVariable int qte
+    )
+    {
         Inventaire inventaire = inventaireService.getByType(type);
         int qte_courante = inventaire.getQuantity();
-        int res = qte + qte_courante;
+        int res = qte_courante - qte;
         inventaire.setQuantity(res);
         return inventaireService.save(inventaire);
     }

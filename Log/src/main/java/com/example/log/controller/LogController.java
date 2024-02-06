@@ -16,6 +16,13 @@ public class LogController
         this.logService = logService;
     }
 
+    /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
 
     /**
      * Route pour ajouter un log

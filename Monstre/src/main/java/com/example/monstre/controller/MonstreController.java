@@ -28,6 +28,14 @@ public class MonstreController {
     }
 
     /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
+
+    /**
      * Route de création personnalisé du monstre
      * @param nom nom du monstre
      * @param attaque attaque du monstre
