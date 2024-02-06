@@ -59,18 +59,6 @@ public class CaveController
         return caveService.save(incubateur);
     }
 
-
-    /**
-     * Route pour supprimer un incubateur avec son id
-     * @param id id de l'incubateur
-     */
-    @GetMapping(path="/suppression/{id}")
-    public @ResponseBody void suppressionIncubateur(@PathVariable int id)
-    {
-        caveService.delete(id);
-    }
-
-
     /**
      * Route pour savoir combien d'incubateur on a
      * @return nb d'incubateur

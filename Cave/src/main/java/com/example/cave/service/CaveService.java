@@ -23,10 +23,6 @@ public class CaveService {
         return incubateurRepository.save(incubateur);
     }
 
-    public void delete(int id){
-        incubateurRepository.deleteById(id);
-    }
-
     public List<Incubateur> getAllIncubateur() {
         return (List<Incubateur>) incubateurRepository.findAll();
     }

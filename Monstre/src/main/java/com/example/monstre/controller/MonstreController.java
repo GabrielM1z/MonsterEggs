@@ -53,18 +53,6 @@ public class MonstreController {
         return monstreService.save(monstre);
     }
 
-    /**
-     * Route de suppression de monstres
-     * @param id du monstre à supprimer
-     */
-    @GetMapping(path="/suppression/{id}")
-    public @ResponseBody void suppressionMonstre(
-            @PathVariable int id
-    )
-    {
-        monstreService.delete(id);
-    }
-
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Monstre> getAll() {
         // This returns a JSON or XML with the users
