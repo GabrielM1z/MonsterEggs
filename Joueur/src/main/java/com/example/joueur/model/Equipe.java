@@ -1,7 +1,9 @@
 package com.example.joueur.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class Equipe {
 
 
