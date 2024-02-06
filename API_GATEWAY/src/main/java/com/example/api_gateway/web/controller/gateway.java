@@ -254,7 +254,7 @@ public class gateway {
 
 
     ////////////////////////////////////////////////////////////
-    //                   TRANSFERT MONSTRES                   //
+    //                  OPERATIONS MONSTRES                   //
     ////////////////////////////////////////////////////////////
 
 
@@ -324,6 +324,40 @@ public class gateway {
 
         // return message sucess
         return "Le Monstre (" + idMonstre + " : " + nomMonstre + ") à été relaché";
+    }
+
+
+
+    ////////////////////////////////////////////////////////////
+    //                    OPERATIONS OEUFS                    //
+    ////////////////////////////////////////////////////////////
+
+    /**
+     * Route pour vendre un oeuf
+     * @return
+     */
+    @GetMapping("/API/VendreOeuf")
+    private String vendreOeuf()
+    {
+        // recup les ports des micro-service
+        int idJoueur = liste.get("Joueur");
+
+        // test si les micro-services sont up
+        if (!testJoueur())
+        {
+            return "Joueur indisponible";
+        }
+
+        // supprimer 1 oeuf
+        String urlDelete1Oeuf = "http://localhost:" + idJoueur + "/remove/oeufs/1";
+        new RestTemplate().getForObject(urlDelete1Oeuf, String.class);
+
+        // ajouter 10 dollards au portemonnaie
+        String urlAjouter10Dollards = "http://localhost:" + idJoueur + "/add/dollards/10";
+        new RestTemplate().getForObject(urlAjouter10Dollards, String.class);
+
+        // return message sucess
+        return "1 Oeuf a bien été vendu, vous avez gagné 10 dollards ";
     }
 
 
