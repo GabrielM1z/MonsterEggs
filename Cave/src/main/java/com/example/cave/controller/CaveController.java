@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import java.util.Random;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(path="/cave")
@@ -44,9 +46,7 @@ public class CaveController
         final Incubateur incubateur = new Incubateur();
 
         // on set les info de l'incubateur vide
-        incubateur.setOeuf(false);
-        incubateur.setTemps(0);
-
+        incubateur.resetOeuf();
         // on return l'incubateur créé
         return caveService.save(incubateur);
     }
@@ -64,13 +64,13 @@ public class CaveController
 
 
     /**
-     * Route pour compter le nombre d'incubateur dans la cave
-     * @return nb d'incubateur
+     * Route pour savoir si on peut ajouter un incubateur dans la cave
+     * @return nb d'incubateur < maxIncutabeur
      */
-    @GetMapping(path="/compter")
-    public @ResponseBody int compterIncubateur()
+    @GetMapping(path="/isFreeIncubateur")
+    public @ResponseBody boolean isFreeIncubateur()
     {
-        return caveService.getAllIncubateur().size();
+        return caveService. isFreeIncubateur();
     }
 
     @GetMapping(path="/checkVide/{id}")
@@ -80,7 +80,7 @@ public class CaveController
         Incubateur incubateur = caveService.getIncubateurById(id);
 
         // return true si vide, false si oeuf
-        return !incubateur.isOeuf();
+        return !incubateur.hasOeuf();
     }
 
 
@@ -95,13 +95,12 @@ public class CaveController
         // on recup l'incubateur grace à l'id
         Incubateur incubateur = caveService.getIncubateurById(idIncubateur);
 
+        // On génère un nombre aléatoire entre 1 et 10 pour le temps d'éclosion en secondes * 10
+        Random random = new Random();
+        int tempsRand = random.nextInt(10) + 1;
+        incubateur.setDateEclosion(LocalDateTime.now().plusSeconds(tempsRand));
         // on set l'oeuf à true
         incubateur.setOeuf(true);
-
-        // on set un temps d'éclosion aléatoire
-        Random rand = new Random();
-        float tempsRand = 1 + rand.nextFloat() * (10 - 1);
-        incubateur.setTemps(tempsRand);
 
         // on return l'incubateur modifié
         return caveService.save(incubateur);

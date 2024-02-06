@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Incubateur {
 
@@ -14,7 +16,15 @@ public class Incubateur {
 
     private boolean oeuf;
 
-    private float temps;
+    private LocalDateTime dateEclosion;
+
+    public LocalDateTime getDateEclosion() {
+        return dateEclosion;
+    }
+
+    public void setDateEclosion(LocalDateTime dateEclosion) {
+        this.dateEclosion = dateEclosion;
+    }
 
     public int getId() {
         return id;
@@ -24,7 +34,7 @@ public class Incubateur {
         this.id = id;
     }
 
-    public boolean isOeuf() {
+    public boolean hasOeuf() {
         return oeuf;
     }
 
@@ -32,11 +42,8 @@ public class Incubateur {
         this.oeuf = oeuf;
     }
 
-    public float getTemps() {
-        return temps;
-    }
-
-    public void setTemps(float temps) {
-        this.temps = temps;
+    public void resetOeuf(){
+        setOeuf(false);
+        setDateEclosion(LocalDateTime.of(0,0,0,0,0));
     }
 }
