@@ -126,6 +126,15 @@ public class gateway {
                         return "Cave indisponible";
                     }
 
+                    // On recup le nombre d'incubateur dans la cave
+                    String urlGetNbIncubateur = "http://localhost:" + idCave + "/cave/nbIncubateur";
+                    RestTemplate restGetNbIncubateur = new RestTemplate();
+                    int nbIncubateur = restGetNbIncubateur.getForObject(urlGetNbIncubateur, Integer.class);
+
+                    if (nbIncubateur >= 6){
+                        return "Impossible d'acheter l'incubateur vous en avez atteint la limite du nombre d'incubateur (6)";
+                    }
+
                     // On l'ajoute à la cave
                     urlAddItem = "http://localhost:" + idCave + "/cave/add";
                     new RestTemplate().getForObject(urlAddItem, String.class);
@@ -133,6 +142,7 @@ public class gateway {
 
                 // Si l'item est un oeuf
                 case "oeuf":
+
                     // On l'ajoute à l'inventaire
                     urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
                     new RestTemplate().getForObject(urlAddItem, String.class);
