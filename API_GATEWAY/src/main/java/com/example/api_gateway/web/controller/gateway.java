@@ -140,19 +140,15 @@ public class gateway {
                     new RestTemplate().getForObject(urlAddItem, String.class);
                     break;
 
-                // Si l'item est un oeuf
-                case "oeuf":
-
-                    // On l'ajoute à l'inventaire
-                    urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
-                    new RestTemplate().getForObject(urlAddItem, String.class);
-                    break;
-
                 // Dans le cas ou c'est autre chose
                 case null:
                     break;
+
+                // Si l'item est un oeuf
                 default:
-                    // on ne fait rien
+                    // On l'ajoute à l'inventaire
+                    urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/" + type + "/" + quantity;
+                    new RestTemplate().getForObject(urlAddItem, String.class);
                     break;
             }
 
