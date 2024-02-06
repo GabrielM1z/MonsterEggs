@@ -1,4 +1,5 @@
 let shop ;
+let poche ;
 let routes = [
     "APIGateway",
     "Boutique",
@@ -14,10 +15,13 @@ window.onload = function(){
     checkAllRoute();
     getBoutique();
     getDollards();
+    getPoche();
 
     setInterval(function() {
         getBoutique();
+        getPoche();
     }, 100);
+
 }
 
 /**
@@ -53,4 +57,14 @@ function addOneDollards(){
     $.get("http://localhost:8080/API/Joueur/addOneDollards", function(data) {
         getDollards();
     });
+}
+
+
+/**
+ * TOOLBOX
+ */
+
+// Fonction pour vérifier l'égalité de deux objets JSON
+function isEqual(obj1, obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
