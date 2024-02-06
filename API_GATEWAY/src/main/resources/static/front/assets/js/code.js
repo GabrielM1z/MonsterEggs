@@ -20,7 +20,7 @@ window.onload = function(){
     setInterval(function() {
         getBoutique();
         getPoche();
-    }, 100);
+    }, 1000);
 
 }
 

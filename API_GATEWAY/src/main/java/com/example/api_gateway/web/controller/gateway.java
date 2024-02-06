@@ -351,16 +351,31 @@ public class gateway {
             return "Joueur indisponible";
         }
 
-        // supprimer 1 oeuf
-        String urlDelete1Oeuf = "http://localhost:" + idJoueur + "/remove/oeufs/1";
-        new RestTemplate().getForObject(urlDelete1Oeuf, String.class);
 
-        // ajouter 10 dollards au portemonnaie
-        String urlAjouter10Dollards = "http://localhost:" + idJoueur + "/add/dollards/10";
-        new RestTemplate().getForObject(urlAjouter10Dollards, String.class);
+        // On recup notre quantité de dollards
+        String urlGetOeufs = "http://localhost:" + idJoueur + "/inventaire/get/oeufs";
+        RestTemplate restGetOeufs = new RestTemplate();
+        int nbOeufs = restGetOeufs.getForObject(urlGetOeufs, Integer.class);
 
-        // return message sucess
-        return "1 Oeuf a bien été vendu, vous avez gagné 10 dollards ";
+        // Si on a moins de dollards que 10 dollards
+        if(nbOeufs<1)
+        {
+            return  "Vous n'avez pas assez d'oeuf.";
+        }
+        // Sinon
+        else {
+
+            // supprimer 1 oeuf
+            String urlDelete1Oeuf = "http://localhost:" + idJoueur + "/inventaire/remove/oeufs/1";
+            new RestTemplate().getForObject(urlDelete1Oeuf, String.class);
+
+            // ajouter 10 dollards au portemonnaie
+            String urlAjouter10Dollards = "http://localhost:" + idJoueur + "/inventaire/add/dollards/10";
+            new RestTemplate().getForObject(urlAjouter10Dollards, String.class);
+
+            // return message sucess
+            return "1 Oeuf a bien été vendu, vous avez gagné 10 dollards ";
+        }
     }
 
 

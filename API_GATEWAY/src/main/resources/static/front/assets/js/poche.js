@@ -34,12 +34,12 @@ function displayPoche(){
                 // Créer un bouton pour vendre un œuf
                 var sellButton = document.createElement('button');
                 sellButton.textContent = 'Vendre 1 œuf';
-                sellButton.onclick = vendreOeuf();
+                sellButton.onclick = function() { vendreOeuf(); };
 
                 // Créer un bouton pour mettre dans un incubateur
                 var incubatorButton = document.createElement('button');
                 incubatorButton.textContent = 'Mettre dans un incubateur';
-                incubatorButton.onclick = incuberOeuf();
+                incubatorButton.onclick = function() { incuberOeuf(); };
 
                 itemDiv.appendChild(img);
                 itemDiv.appendChild(title);
@@ -53,6 +53,9 @@ function displayPoche(){
 
 function vendreOeuf(){
     console.log("Vente")
+    $.get("http://localhost:8080/API/VendreOeuf", function(data) {
+        getDollards();
+    });
 }
 
 function incuberOeuf(){
