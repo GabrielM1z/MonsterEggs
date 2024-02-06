@@ -7,8 +7,17 @@
 .shop {
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 75px;
+}
+.sousshop {
+    display: flex;
+    flex-wrap: wrap;
 }
 
+.shoppicture{
+    max-width: 200px;
+    max-height: 200px;
+}
 .item {
     width: 200px;
     height: 200px;

@@ -51,7 +51,8 @@ public class BoutiqueController {
             int price = rand.nextInt(31) + 20;
             item.setPrice(price);
             // quantité
-            int qte = rand.nextInt(10 - 1 + 1) + 1;
+            //int qte = rand.nextInt(10 - 1 + 1) + 1;
+            int qte = 1;
             item.setQuantity(qte);
 
             // on save l'item en BDD

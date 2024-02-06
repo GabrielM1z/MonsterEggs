@@ -13,7 +13,7 @@ import java.util.Map;
 @CrossOrigin
 public class gateway {
 
-    private Map<String, Integer> liste = new HashMap<>();
+    private final Map<String, Integer> liste = new HashMap<>();
 
     public gateway() {
         liste.put("API_Gateway", 8080);
@@ -28,7 +28,22 @@ public class gateway {
 
         String url = "http://localhost:8085/inventaire/create/dollards/100";
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(url, String.class);
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
+        }
+    }
+
+    private String performRequest(String url) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            return restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            // Gérer l'erreur ici (vous pouvez simplement imprimer le message d'erreur)
+            return "Erreur";
+        }
     }
 
 

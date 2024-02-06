@@ -61,6 +61,35 @@ function createItem(){
     setTimeout(function (){
         $.get(`http://localhost:8080/API/Boutique/Get`, function(data) {
             console.log("createItem() - Retour get =", data);
+            var elements = JSON.parse(data);
+            var shopDiv = document.querySelector('.sousshop');
+
+            elements.forEach(function(element) {
+                // Création d'une nouvelle div avec la classe item
+                var itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                // Création d'une image avec la classe shoppicture
+                var img = document.createElement('img');
+                img.classList.add('shoppicture');
+                img.onclick = function() { buyItem(this); }; // Définition de l'événement onclick
+                if (element.nom == "Oeufs"){
+                    img.src = 'front/img/O1.png'; // Chemin de l'image
+                }else{
+                    img.src = 'front/img/I1.png'; // Chemin de l'image
+                }
+
+                // Création d'un titre avec la quantité
+                var title = document.createElement('h4');
+                title.textContent = element.quantity + ' ' + element.nom;
+
+                // Ajout de l'image et du titre à la div item
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(title);
+
+                // Ajout de la div item à la div shop
+                shopDiv.appendChild(itemDiv);
+            });
         });
     }, 150);
 
