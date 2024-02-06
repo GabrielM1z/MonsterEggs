@@ -1,7 +1,7 @@
 package com.example.joueur.service;
 
-import com.example.joueur.model.Equipe;
-import com.example.joueur.repository.EquipeRepository;
+import com.example.joueur.model.MonstreEquipe;
+import com.example.joueur.repository.MonstreEquipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,22 @@ import java.util.List;
 public class EquipeService {
 
     @Autowired
-    private EquipeRepository equipeRepository;
+    private MonstreEquipeRepository monstreEquipeRepository;
 
     final private int maxMonstres = 6;
 
-    public Equipe save(Equipe equipe){
-        return equipeRepository.save(equipe);
+    public MonstreEquipe save(MonstreEquipe monstreEquipe){
+        return monstreEquipeRepository.save(monstreEquipe);
     }
 
-    public List<Equipe> getAllEquipe() {
-        return (List<Equipe>) equipeRepository.findAll();
+    public List<MonstreEquipe> getAllEquipe() {
+        return (List<MonstreEquipe>) monstreEquipeRepository.findAll();
     }
 
     public int getMaxMonstres() { return maxMonstres; }
+
+    public void delete(int id)
+    {
+        monstreEquipeRepository.deleteById(id);
+    }
 }

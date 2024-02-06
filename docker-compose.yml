@@ -1,6 +1,13 @@
 version: "3"
 services:
 
+  # rabbit mq
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   # API GATEWAY
   gateway:
     build:
@@ -42,6 +49,8 @@ services:
       context: "./Joueur"
     ports:
       - "8085:8085"
+    depends_on:
+      - rabbitmq
 
   # MONSTRE
   monstre:
@@ -49,6 +58,8 @@ services:
       context: "./Monstre"
     ports:
       - "8086:8086"
+    depends_on:
+      - rabbitmq
 
   # LOG
   log:
@@ -57,8 +68,3 @@ services:
     ports:
       - "8087:8087"
 
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
