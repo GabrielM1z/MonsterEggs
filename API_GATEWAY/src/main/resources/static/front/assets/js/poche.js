@@ -55,6 +55,9 @@ function vendreOeuf(){
     console.log("Vente")
     $.get("http://localhost:8080/API/VendreOeuf", function(data) {
         getDollards();
+        if(data == ""){
+            alert("Vous n'avez pas assez d'oeuf.")
+        }
     });
 }
 

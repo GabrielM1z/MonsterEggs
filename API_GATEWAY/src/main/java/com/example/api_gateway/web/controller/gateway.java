@@ -360,7 +360,7 @@ public class gateway {
         // Si on a moins de dollards que 10 dollards
         if(nbOeufs<1)
         {
-            return  "Vous n'avez pas assez d'oeuf.";
+            return  "";
         }
         // Sinon
         else {
