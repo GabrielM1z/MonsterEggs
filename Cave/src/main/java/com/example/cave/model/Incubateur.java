@@ -44,6 +44,6 @@ public class Incubateur {
 
     public void resetOeuf(){
         setOeuf(false);
-        setDateEclosion(LocalDateTime.of(0,0,0,0,0));
+        setDateEclosion(LocalDateTime.now());
     }
 }

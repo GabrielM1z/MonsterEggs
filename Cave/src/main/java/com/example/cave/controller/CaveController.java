@@ -105,7 +105,7 @@ public class CaveController
 
         // On génère un nombre aléatoire entre 1 et 10 pour le temps d'éclosion en secondes * 10
         Random random = new Random();
-        int tempsRand = random.nextInt(10) + 1;
+        int tempsRand = random.nextInt(10)*10 + 1;
         incubateur.setDateEclosion(LocalDateTime.now().plusSeconds(tempsRand));
         // on set l'oeuf à true
         incubateur.setOeuf(true);
