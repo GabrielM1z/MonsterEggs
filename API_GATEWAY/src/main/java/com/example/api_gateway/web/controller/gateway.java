@@ -327,41 +327,37 @@ public class gateway {
     }
 
 
+
+    ////////////////////////////////////////////////////////////
+    //                    OPERATIONS OEUFS                    //
+    ////////////////////////////////////////////////////////////
+
     /**
-     * Route pour vendre un Monstre depuis le coffre
+     * Route pour vendre un oeuf
      * @return
      */
-    @GetMapping("/API/VendreMonstre/{idMonstre}")
-    private String vendreMonstreCoffre(@PathVariable int idMonstre)
+    @GetMapping("/API/VendreOeuf")
+    private String vendreOeuf()
     {
-        // recup les ports des micro-services
-        int idCoffre = liste.get("Coffre");
+        // recup les ports des micro-service
         int idJoueur = liste.get("Joueur");
 
         // test si les micro-services sont up
-        if (!testCoffre())
-        {
-            return "Coffre indisponible";
-        }
         if (!testJoueur())
         {
             return "Joueur indisponible";
         }
 
-        // Recup les info du monstres à vendre
-        String urlGetMonstre = "http://localhost:" + idJoueur + "/equipe/get/" + idMonstre;
-        RestTemplate restGetMonstre = new RestTemplate();
-        String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
+        // supprimer 1 oeuf
+        String urlDelete1Oeuf = "http://localhost:" + idJoueur + "/remove/oeufs/1";
+        new RestTemplate().getForObject(urlDelete1Oeuf, String.class);
 
-        // TODO ajouter argent au portemonnaie
-
-
-        // Supprimer monstre de l'équipe
-        String urlDeleteMonstreEquipe = "http://localhost:" + idCoffre + "/equipe/remove/" + idMonstre;
-        new RestTemplate().getForObject(urlDeleteMonstreEquipe, String.class);
+        // ajouter 10 dollards au portemonnaie
+        String urlAjouter10Dollards = "http://localhost:" + idJoueur + "/add/dollards/10";
+        new RestTemplate().getForObject(urlAjouter10Dollards, String.class);
 
         // return message sucess
-        return "Le Monstre (" + idMonstre + " : " + nomMonstre + ") à été relaché";
+        return "1 Oeuf a bien été vendu, vous avez gagné 10 dollards ";
     }
 
 
