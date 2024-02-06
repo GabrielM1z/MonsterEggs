@@ -254,7 +254,7 @@ public class gateway {
 
 
     ////////////////////////////////////////////////////////////
-    //                   TRANSFERT MONSTRES                   //
+    //                  OPERATIONS MONSTRES                   //
     ////////////////////////////////////////////////////////////
 
 
@@ -320,6 +320,44 @@ public class gateway {
 
         // Supprimer monstre de l'équipe
         String urlDeleteMonstreEquipe = "http://localhost:" + idJoueur + "/equipe/remove/" + idMonstre;
+        new RestTemplate().getForObject(urlDeleteMonstreEquipe, String.class);
+
+        // return message sucess
+        return "Le Monstre (" + idMonstre + " : " + nomMonstre + ") à été relaché";
+    }
+
+
+    /**
+     * Route pour vendre un Monstre depuis le coffre
+     * @return
+     */
+    @GetMapping("/API/VendreMonstre/{idMonstre}")
+    private String vendreMonstreCoffre(@PathVariable int idMonstre)
+    {
+        // recup les ports des micro-services
+        int idCoffre = liste.get("Coffre");
+        int idJoueur = liste.get("Joueur");
+
+        // test si les micro-services sont up
+        if (!testCoffre())
+        {
+            return "Coffre indisponible";
+        }
+        if (!testJoueur())
+        {
+            return "Joueur indisponible";
+        }
+
+        // Recup les info du monstres à vendre
+        String urlGetMonstre = "http://localhost:" + idJoueur + "/equipe/get/" + idMonstre;
+        RestTemplate restGetMonstre = new RestTemplate();
+        String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
+
+        // TODO ajouter argent au portemonnaie
+
+
+        // Supprimer monstre de l'équipe
+        String urlDeleteMonstreEquipe = "http://localhost:" + idCoffre + "/equipe/remove/" + idMonstre;
         new RestTemplate().getForObject(urlDeleteMonstreEquipe, String.class);
 
         // return message sucess
