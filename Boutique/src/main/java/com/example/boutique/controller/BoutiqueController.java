@@ -24,6 +24,13 @@ public class BoutiqueController {
         this.boutiqueService = boutiqueService;
     }
 
+    /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
 
     /**
      * Route de rafraichissement de la boutique

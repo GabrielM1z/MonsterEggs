@@ -15,6 +15,13 @@ public class CoffreController {
         this.coffreService = coffreService;
     }
 
+    /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
 
     /**
      * Route pour recuperer tout les monstres dans le coffre

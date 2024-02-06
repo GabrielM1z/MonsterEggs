@@ -22,6 +22,14 @@ public class CaveController
     }
 
     /**
+     * Route de vérification service up
+     */
+    @GetMapping(path="/main")
+    public @ResponseBody String main(){
+        return "OK";
+    }
+
+    /**
      * Route pour recup tout les incubateurs
      * @return liste d'incubateur
      */

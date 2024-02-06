@@ -4,6 +4,7 @@ window.onload = function(){
     for (let i = 0; i < 10; i++) {
         newImage()
     }
+    checkAllRoute();
     createItem()
     countdown(); // Lancer le compte à rebours au chargement de la page
     getDollards();
@@ -16,6 +17,32 @@ function newImage(){
     placeholderImg.style.maxHeight = '200px';
     placeholderImg.src = 'front/img/Albus.png'; // Ajouter le chemin de votre image placeholder
     inventory.appendChild(placeholderImg);
+}
+
+function checkAllRoute() {
+    var routes = [
+        "APIGateway",
+        "Boutique",
+        "Cave",
+        "Coffre",
+        "Combat",
+        "Joueur",
+        "Log",
+        "Monstre"
+        // Ajoutez d'autres routes ici si nécessaire
+    ];
+
+    routes.forEach(function(route, index) {
+        $.get("http://localhost:8080/" + route, function(data) {
+            var tabId = "#tab_" + (index + 1);
+            var color = data ? "green" : "red";
+            $(tabId).css("color", color);
+
+            setTimeout(function() {
+                console.log(data,index)
+            }, 100);
+        });
+    });
 }
 
 function countdown() {

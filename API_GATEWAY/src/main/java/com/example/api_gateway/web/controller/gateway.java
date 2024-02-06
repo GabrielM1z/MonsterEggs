@@ -35,18 +35,10 @@ public class gateway {
         }
     }
 
-    private String performRequest(String url) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        try {
-            return restTemplate.getForObject(url, String.class);
-        } catch (Exception e) {
-            // Gérer l'erreur ici (vous pouvez simplement imprimer le message d'erreur)
-            return "Erreur";
-        }
-    }
-
-
+    /**
+     * Route page d'accueil
+     * @return
+     */
     @GetMapping("/")
     public String index() {
         int valeur = liste.get("API_Gateway");
@@ -54,75 +46,75 @@ public class gateway {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
     }
-    @GetMapping("/Test")
-    private String ResultTest(){
-        int valeur = liste.get("Boutique");
-        return String.valueOf(valeur);
-    }
 
-    @GetMapping("/Inventaire")
-    private String TestInventaire(){
-        int valeur = liste.get("Inventaire");
-        String url = "http://localhost:" + valeur + "/main";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+    /**
+     *          Route de vérification services up
+     */
+    @GetMapping("/APIGateway")
+    public Boolean testAPI_GATEWAY() {
+        return true;
     }
 
     @GetMapping("/Boutique")
-    private String TestBoutique(){
+    public Boolean testBoutique() {
         int valeur = liste.get("Boutique");
-        String url = "http://localhost:" + valeur + "/main";
+        String url = "http://localhost:" + valeur + "/boutique/main";
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
-    }
-
-    @GetMapping("/Joueur")
-    private String TestJoueur(){
-        int valeur = liste.get("Joueur");
-        String url = "http://localhost:" + valeur + "/main";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
-    }
-
-    @GetMapping("/Coffre")
-    private String TestCoffre(){
-        int valeur = liste.get("Coffre");
-        String url = "http://localhost:" + valeur + "/main";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @GetMapping("/Cave")
-    private String TestCave(){
+    public Boolean testCave() {
         int valeur = liste.get("Cave");
-        String url = "http://localhost:" + valeur + "/main";
+        String url = "http://localhost:" + valeur + "/cave/main";
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    @GetMapping("/Monstre")
-    private String TestMonstre(){
-        int valeur = liste.get("Monstre");
-        String url = "http://localhost:" + valeur + "/main";
+    @GetMapping("/Coffre")
+    public Boolean testCoffre() {
+        int valeur = liste.get("Coffre");
+        String url = "http://localhost:" + valeur + "/coffre/main";
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @GetMapping("/Combat")
-    private String TestCombat(){
+    public Boolean testCombat() {
         int valeur = liste.get("Combat");
-        String url = "http://localhost:" + valeur + "/main";
+        String url = "http://localhost:" + valeur + "/combat/main";
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        try {
+            restTemplate.getForObject(url, String.class);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    @GetMapping("/Log")
-    private String TestLog(){
-        int valeur = liste.get("Log");
-        String url = "http://localhost:" + valeur + "/main";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
-    }
+
+
+
+
+
+
+
+
 
     @GetMapping("/API/Boutique/BuyItem/{itemId}")
     private String BuyItem(@PathVariable String itemId) {
