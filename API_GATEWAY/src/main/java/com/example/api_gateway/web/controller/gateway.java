@@ -300,7 +300,7 @@ public class gateway {
         String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
 
         // Ajouter monstres au coffre
-        String urlAddMonstreCoffre = "http://localhost:" + idCoffre + "/add/" + idMonstre + "/" + nomMonstre;
+        String urlAddMonstreCoffre = "http://localhost:" + idCoffre + "/coffre/add/" + idMonstre + "/" + nomMonstre;
         new RestTemplate().getForObject(urlAddMonstreCoffre, String.class);
 
         // Supprimer monstre de l'équipe
