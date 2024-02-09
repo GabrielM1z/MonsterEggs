@@ -469,7 +469,7 @@ public class gateway {
         // Si on a des oeufs
         if(nbOeufs<1 || !checkVide)
         {
-            return  "";
+            return  "Pas d'oeuf dans l'inventaire ou aucun incubateur de disponible !";
         }
         // Sinon
         else {
