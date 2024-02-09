@@ -81,7 +81,7 @@ function combattreAvec(element){
 
     $.get("http://localhost:8080/API/CombatMonstreEquipe/"+ element.id +"/" + valeurChoisie, function(data) {
         if(data == ""){
-            alert("Erreur")
+            alert("Ton monstre a perdu BOUUUUh le nul")
         }else {
             getDollards();
             alert(data)
