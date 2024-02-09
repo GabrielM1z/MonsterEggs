@@ -269,6 +269,14 @@ public class gateway {
         return restTemplate.getForObject(url, String.class);
     }
 
+    @GetMapping("/API/Coffre/Get")
+    private String GetCoffre() {
+        int valeur = liste.get("Coffre");
+        String url = "http://localhost:" + valeur + "/coffre/all";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
     /**
      * Route pour transférer un Monstre de l'Equipe vers le Coffre
      * @return
