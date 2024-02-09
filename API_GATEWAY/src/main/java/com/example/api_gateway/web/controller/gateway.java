@@ -261,6 +261,13 @@ public class gateway {
     //                  OPERATIONS MONSTRES                   //
     ////////////////////////////////////////////////////////////
 
+    @GetMapping("/API/Equipe/Get")
+    private String GetEquipe() {
+        int valeur = liste.get("Joueur");
+        String url = "http://localhost:" + valeur + "/equipe/all";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
 
     /**
      * Route pour transférer un Monstre de l'Equipe vers le Coffre
@@ -411,7 +418,7 @@ public class gateway {
         // Si on a des oeufs
         if(nbOeufs<1 || !checkVide)
         {
-            return  "";
+            return  nbOeufs + " " + checkVide;
         }
         // Sinon
         else {
