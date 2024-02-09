@@ -92,5 +92,12 @@ function combattreAvec(element){
 }
 
 function relacherElement(element){
-    alert("En construction chef !")
+    $.get("http://localhost:8080/API/RelacherMonstreEquipe/"+ element.id, function(data) {
+        if(data == ""){
+            alert("Erreur")
+        }else {
+            getDollards();
+            alert(data)
+        }
+    });
 }
