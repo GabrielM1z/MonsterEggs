@@ -19,7 +19,7 @@ var liste_img_monstre = {
     "GabBravo": 'front/img/Monstre3.jpg',
     "MaxOuTonPere": 'front/img/Monstre4.jpg',
     "Selamouche": 'front/img/Monstre5.jpg',
-    "QuoiCouBERRRRRHH": 'front/img/Monstre6.jpg',
+    "QuoiCouBERH": 'front/img/Monstre6.jpg',
     // Ajoutez d'autres monstres avec leur chemin d'image
 };
 

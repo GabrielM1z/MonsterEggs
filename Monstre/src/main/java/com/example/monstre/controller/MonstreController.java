@@ -25,7 +25,7 @@ public class MonstreController {
         this.nomMonstreList.add("MaxOuTonPere");
         this.nomMonstreList.add("Selamouche");
         this.nomMonstreList.add("Tentacouille");
-        this.nomMonstreList.add("QuoiCouBERRRRRHH");
+        this.nomMonstreList.add("QuoiCouBERH");
     }
 
     /**
