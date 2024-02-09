@@ -27,6 +27,9 @@ function displayEquipe(){
                 img.classList.add('equipepicture');
                 img.src = liste_img_monstre[element.nom];
 
+                var nomMonstre = document.createElement('h3');
+                nomMonstre.textContent = element.nom;
+
                 // Créer des boutons pour mettre dans le coffre, combattre et vendre
                 var boutonCoffre = document.createElement('button');
                 boutonCoffre.textContent = 'Mettre dans le coffre';
@@ -47,6 +50,7 @@ function displayEquipe(){
                 };
 
                 cell.appendChild(img);
+                cell.appendChild(nomMonstre);
                 cell.appendChild(boutonCoffre);
                 cell.appendChild(boutonCombattre);
                 cell.appendChild(boutonVendre);
