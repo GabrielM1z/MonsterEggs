@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import java.util.List;
 import java.util.Random;
 import java.time.LocalDateTime;
 
@@ -69,42 +70,38 @@ public class CaveController
         return caveService.isFreeIncubateur();
     }
 
+    /**
+     * Route pour savoir le nombre d'incubateur dans la cave
+     * @return nb d'incubateur
+     */
+    @GetMapping(path="/getListId")
+    public @ResponseBody List<Integer> getListId()
+    {
+        return caveService.getListId();
+    }
+
 
     /**
      *
-     * @param id
+     * return true si vide, false si oeuf
      * @return
      */
-    @GetMapping(path="/checkVide/{id}")
-    public @ResponseBody boolean checkVide(@PathVariable int id)
+    @GetMapping(path="/checkVide")
+    public @ResponseBody boolean checkVide()
     {
-        // on recup l'incubateur
-        Incubateur incubateur = caveService.getIncubateurById(id);
-
-        // return true si vide, false si oeuf
-        return !incubateur.hasOeuf();
+        return caveService.checkVide();
     }
 
 
     /**
      * Route pour ajouter un oeuf à un incubateur
-     * @param idIncubateur
+     *
      * @return
      */
-    @GetMapping(path="/addOeuf/{idIncubateur}")
-    public @ResponseBody Incubateur ajouterOeufIncubateur(@PathVariable int idIncubateur)
+    @GetMapping(path="/addOeuf")
+    public @ResponseBody Incubateur ajouterOeufIncubateur()
     {
-        // on recup l'incubateur grace à l'id
-        Incubateur incubateur = caveService.getIncubateurById(idIncubateur);
-
-        // On génère un nombre aléatoire entre 1 et 10 pour le temps d'éclosion en secondes * 10
-        Random random = new Random();
-        int tempsRand = random.nextInt(10)*10 + 1;
-        incubateur.setDateEclosion(LocalDateTime.now().plusSeconds(tempsRand));
-        // on set l'oeuf à true
-        incubateur.setOeuf(true);
-
         // on return l'incubateur modifié
-        return caveService.save(incubateur);
+        return caveService.ajouterOeuf();
     }
 }

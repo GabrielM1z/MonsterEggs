@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -375,6 +376,54 @@ public class gateway {
 
             // return message sucess
             return "1 Oeuf a bien été vendu, vous avez gagné 10 dollards ";
+        }
+    }
+
+
+    /**
+     * Route pour vendre un oeuf
+     * @return
+     */
+    @GetMapping("/API/IncuberOeuf")
+    private String incuberOeuf()
+    {
+        // recup les ports des micro-service
+        int idJoueur = liste.get("Joueur");
+        int idCave = liste.get("Cave");
+        // test si les micro-services sont up
+        if (!testJoueur())
+        {
+            return "Joueur indisponible";
+        }
+        if(!testCave())
+        {
+            return "Cave indisponible";
+        }
+
+
+        // On recup notre quantité d'oeufs
+        String urlGetOeufs = "http://localhost:" + idJoueur + "/inventaire/get/oeufs";
+        RestTemplate restGetOeufs = new RestTemplate();
+        int nbOeufs = restGetOeufs.getForObject(urlGetOeufs, Integer.class);
+
+        String urlCheckIncubateurEmpty = "http://localhost:" + idCave + "/cave/checkVide";
+        boolean checkVide = new RestTemplate().getForObject(urlCheckIncubateurEmpty, boolean.class);
+        // Si on a des oeufs
+        if(nbOeufs<1 || !checkVide)
+        {
+            return  "";
+        }
+        // Sinon
+        else {
+            // supprimer 1 oeuf
+            String urlDelete1Oeuf = "http://localhost:" + idJoueur + "/inventaire/remove/oeufs/1";
+            new RestTemplate().getForObject(urlDelete1Oeuf, String.class);
+
+            String urlAddOeuf = "http://localhost:" + idCave + "/cave/addOeuf";
+            new RestTemplate().getForObject(urlAddOeuf, String.class);
+
+            // return message sucess
+            return "1 Oeuf a bien été incuber !";
         }
     }
 
