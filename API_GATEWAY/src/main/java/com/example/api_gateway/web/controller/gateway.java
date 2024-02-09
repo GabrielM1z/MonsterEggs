@@ -328,7 +328,7 @@ public class gateway {
             return "Joueur indisponible (Equipe et Inventaire)";
         }
 
-        // Recup les info du monstres à déplacer
+        // Recup les info du monstres à relacher
         String urlGetMonstre = "http://localhost:" + idJoueur + "/equipe/get/" + idMonstre;
         RestTemplate restGetMonstre = new RestTemplate();
         String nomMonstre = restGetMonstre.getForObject(urlGetMonstre, String.class);
@@ -469,7 +469,7 @@ public class gateway {
         // Si on a des oeufs
         if(nbOeufs<1 || !checkVide)
         {
-            return  nbOeufs + " " + checkVide;
+            return  "";
         }
         // Sinon
         else {
