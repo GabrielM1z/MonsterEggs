@@ -15,7 +15,9 @@
     flex-wrap: wrap;
 }
 
-.shoppicture, .itemPoche{
+.shoppicture,
+.itemPoche,
+.equipepicture{
     max-width: 200px;
     max-height: 200px;
 }
@@ -63,4 +65,8 @@
     height: 200px;
     border: 1px solid black;
     margin: 5px;
+}
+
+.Equipecellar .cell {
+    padding-bottom: 75px;
 }

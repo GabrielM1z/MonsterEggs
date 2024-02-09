@@ -4,7 +4,6 @@
 // Fonction pour récupérer les données des poches
 function getPoche(){
     $.get(`http://localhost:8080/API/Inventaire/Get`, function(data) {
-        console.log(data)
         var testPoche = JSON.parse(data);
         if (!isEqual(poche, testPoche)) {
             poche = testPoche;
@@ -21,7 +20,6 @@ function displayPoche(){
         poche.innerHTML = ''
         elements.forEach(function (element) {
             if (element.type == "oeufs") {
-                var itemDiv = document.createElement('div');
                 var itemDiv = document.createElement('div');
                 itemDiv.classList.add('item');
 
@@ -62,5 +60,12 @@ function vendreOeuf(){
 }
 
 function incuberOeuf(){
-    console.log("incuber oeuf")
+    console.log("incuber oeuf");
+    $.get("http://localhost:8080/API/IncuberOeuf", function(data) {
+        if(data == ""){
+            alert("Vous n'avez pas d'oeuf ou d'incubateur.")
+        }else {
+            alert(data)
+        }
+    });
 }

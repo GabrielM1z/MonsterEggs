@@ -1,5 +1,6 @@
 let shop ;
 let poche ;
+let equipe ;
 let routes = [
     "APIGateway",
     "Boutique",
@@ -11,15 +12,27 @@ let routes = [
     "Monstre"
 ];
 
+var liste_img_monstre = {
+    "Tentacouille": 'front/img/Monstre1.jpg',
+    "DamienTg": 'front/img/Monstre2.jpg',
+    "GabBravo": 'front/img/Monstre3.jpg',
+    "MaxOuTonPere": 'front/img/Monstre4.jpg',
+    "Selamouche": 'front/img/Monstre5.jpg',
+    "QuoiCouBERRRRRHH": 'front/img/Monstre6.jpg',
+    // Ajoutez d'autres monstres avec leur chemin d'image
+};
+
 window.onload = function(){
     checkAllRoute();
     getBoutique();
     getDollards();
     getPoche();
+    getEquipe();
 
     setInterval(function() {
         getBoutique();
         getPoche();
+        getEquipe();
     }, 100);
 
 }
@@ -33,10 +46,6 @@ function checkAllRoute() {
             var tabId = "#tab_" + (index + 1);
             var color = data ? "green" : "red";
             $(tabId).css("color", color);
-
-            setTimeout(function() {
-                console.log(data,index)
-            }, 100);
         });
     });
 }
