@@ -79,7 +79,16 @@ function combattreAvec(element){
         }
     });
 
-    alert("Ouais tkt je pars à la guerre avec " + valeurChoisie + " fois rien !")
+    $.get("http://localhost:8080/API/CombatMonstreEquipe/"+ element.id +"/" + valeurChoisie, function(data) {
+        if(data == ""){
+            alert("Erreur")
+        }else {
+            getDollards();
+            alert(data)
+        }
+    });
+
+    //alert("Ouais tkt je pars à la guerre avec " + valeurChoisie + " fois rien !")
 }
 
 function relacherElement(element){
