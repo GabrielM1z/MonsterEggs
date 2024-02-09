@@ -1,6 +1,7 @@
 let shop ;
 let poche ;
 let equipe ;
+let coffre ;
 let routes = [
     "APIGateway",
     "Boutique",
@@ -28,11 +29,13 @@ window.onload = function(){
     getDollards();
     getPoche();
     getEquipe();
+    getCoffre() ;
 
     setInterval(function() {
         getBoutique();
         getPoche();
         getEquipe();
+        getCoffre();
     }, 100);
 
 }
