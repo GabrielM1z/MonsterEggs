@@ -40,15 +40,23 @@ public class MonstreService {
         return listMonstre.get(rand.nextInt(listMonstre.size()));
     }
 
-    public void upXP(int id, int xp)
+    public String upXP(int id, int xp)
     {
         Monstre monstre = getById(id).get();
         int xpTotal = monstre.getXp() + xp;
+        int nbLevel = 0;
         while(xpTotal >= 100){
+            nbLevel = nbLevel + 1;
             monstre.setLevel(monstre.getLevel()+1);
             xpTotal = xpTotal - 100;
         }
+        String strLevel = "";
+        if(nbLevel != 0){
+            strLevel = "\nIl est monté de " + nbLevel + " level ce tour ci !";
+        }
         monstre.setXp(xpTotal);
         save(monstre);
+        return monstre.getNom() + " (id=" + monstre.getId() + ") est level " + monstre.getLevel()
+                + " et il a actuellement " + monstre.getXp() + " expérience !" + strLevel;
     }
 }

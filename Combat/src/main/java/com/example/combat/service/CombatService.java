@@ -19,15 +19,15 @@ public class CombatService {
             int dollards = 0;
             int experience = 0;
             int oeuf = 0;
-            if(monstreAttaquant.getAttaque() * monstreAttaquant.getLevel() >= difficulter/2 * monstreDefense.getAttaque() * monstreDefense.getLevel() - 1){
-                dollards = (monstreDefense.getLevel() * 8 + monstreDefense.getAttaque()) * difficulter/2;
-                experience = monstreDefense.getAttaque() * 5 * difficulter/2;
+            if(monstreAttaquant.getAttaque() * monstreAttaquant.getLevel() >= (difficulter * 0.5) * monstreDefense.getAttaque() * monstreDefense.getLevel() - 1){
+                dollards = (int) ((monstreDefense.getLevel() * 8 + monstreDefense.getAttaque()) * difficulter * 0.5);
+                experience = (int)  (monstreDefense.getAttaque() * 5 * (difficulter * 0.5));
                 Random rand = new Random();
                 if(rand.nextInt(10) % 5 == 0){
                     oeuf = 1;
                 }
             }
-            return "{dollards:"+dollards+",expérience:"+experience+",oeuf:"+oeuf+"}";
+            return "{\"dollards\":"+dollards+",\"experience\":"+experience+",\"oeuf\":"+oeuf+"}";
         } catch (Exception e) {
             System.err.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
         }

@@ -47,7 +47,7 @@ public class MonstreController {
         Random rand = new Random();
         String nom = nomMonstreList.get(rand.nextInt(nomMonstreList.size()));
         monstre.setNom(nom);
-        monstre.setAttaque(rand.nextInt(10));
+        monstre.setAttaque(rand.nextInt(10) + 1);
         monstre.setLevel(1);
         monstre.setXp(0);
         return monstreService.save(monstre);
@@ -72,12 +72,12 @@ public class MonstreController {
     }
 
     @GetMapping(path="/xp/{id}/{xp}")
-    public @ResponseBody void getById(
-            @PathVariable int xp,
-            @PathVariable int id
+    public @ResponseBody String upXP(
+            @PathVariable int id,
+            @PathVariable int xp
     )
     {
-        monstreService.upXP(id, xp);
+        return monstreService.upXP(id, xp);
     }
 
     @GetMapping(path="/getRandomMonstre")

@@ -37,8 +37,7 @@ public class CombatController {
             String str = combatService.combat(monstre, difficulter);
             return str;
         } catch (Exception e) {
-            System.err.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
+            return "Erreur lors de l'exécution de la requête : " + e.getMessage();
         }
-        return null;
     }
 }

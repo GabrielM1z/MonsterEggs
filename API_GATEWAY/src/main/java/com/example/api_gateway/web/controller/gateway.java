@@ -1,5 +1,7 @@
 package com.example.api_gateway.web.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -66,19 +67,16 @@ public class gateway {
      * @return
      */
     @GetMapping("/API/Boutique/BuyItem/{itemId}")
-    private String BuyItem(@PathVariable String itemId)
-    {
+    private String BuyItem(@PathVariable String itemId) {
         // TODO gestion des erreurs sur les appels API des microservices
 
         // si la boutique est down
-        if (!testBoutique())
-        {
+        if (!testBoutique()) {
             return "Boutique indisponible";
         }
 
         // si le joueur est down
-        if (!testJoueur())
-        {
+        if (!testJoueur()) {
             return "Joueur indisponible";
         }
 
@@ -108,13 +106,11 @@ public class gateway {
         int dollards = restGetDollards.getForObject(urlGetDollards, Integer.class);
 
         // Si on a moins de dollards que le prix de l'item
-        if(dollards<price)
-        {
-            return  "Vous n'avez pas assez de dollards.";
+        if (dollards < price) {
+            return "Vous n'avez pas assez de dollards.";
         }
         // Sinon
-        else
-        {
+        else {
             String urlAddItem = "";
             switch (type)
             {
@@ -153,7 +149,7 @@ public class gateway {
                     break;
             }
 
-            // On supprime nos dollards (autant que le prix de l'item)
+            // On supprime nos dollards (autant que le prix de l'item
             String urlRemoveDollards = "http://localhost:" + idJoueur + "/inventaire/remove/dollards/" + price;
             new RestTemplate().getForObject(urlRemoveDollards, String.class);
 
@@ -345,6 +341,53 @@ public class gateway {
         return "Le Monstre (" + idMonstre + " : " + nomMonstre + ") à été relaché";
     }
 
+    @GetMapping("/API/CombatMonstreEquipe/{idMonstre}/{difficulte}")
+    private String CombatMonstreEquipe(@PathVariable int idMonstre, @PathVariable int difficulte)
+    {
+        int idCombat = liste.get("Combat");
+        int idJoueur = liste.get("Joueur");
+        int valeurMonstre = liste.get("Monstre");
+
+        // test si les micro-services sont up
+        if (!testCombat())
+        {
+            return "Combat indisponible";
+        }
+
+        String urlCombat= "http://localhost:" + idCombat + "/combat/" + idMonstre + "/" + difficulte;
+        String rep = new RestTemplate().getForObject(urlCombat, String.class);
+
+        JSONObject jsonObject = new JSONObject(rep);
+
+        String strReturn = "";
+
+        if(jsonObject.getInt("oeuf") != 0){
+            if (testJoueur())
+            {
+                // On l'ajoute à l'inventaire
+                String urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/oeuf/" + jsonObject.getInt("oeuf");
+                new RestTemplate().getForObject(urlAddItem, String.class);
+                strReturn = strReturn + jsonObject.getInt("oeuf") + " oeuf gagné !\n";
+            }
+        }
+        if(jsonObject.getInt("experience") != 0){
+            if (testMonstre()){
+                //On ajoute l'expérience
+                String urlAddItem = "http://localhost:" + valeurMonstre + "/monstre/xp/"+idMonstre+"/" + jsonObject.getInt("experience");
+                String retour = new RestTemplate().getForObject(urlAddItem, String.class);
+                strReturn = strReturn + retour + "\n";
+            }
+        }
+        if(jsonObject.getInt("dollards") != 0){
+            if (testJoueur()){
+                // On l'ajoute à l'inventaire
+                String urlAddItem = "http://localhost:" + idJoueur + "/inventaire/add/dollards/" + jsonObject.getInt("dollards");
+                new RestTemplate().getForObject(urlAddItem, String.class);
+                strReturn = strReturn + jsonObject.getInt("dollards") + " dollards gagné !";
+            }
+        }
+        return strReturn;
+    }
 
 
     ////////////////////////////////////////////////////////////
