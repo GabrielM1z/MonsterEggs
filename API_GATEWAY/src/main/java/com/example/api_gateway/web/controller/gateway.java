@@ -30,15 +30,6 @@ public class gateway {
         liste.put("Joueur", 8085);
         liste.put("Monstre", 8086);
         liste.put("Log", 8087);
-
-        // mettre de l'argent à la base
-        String url = "http://localhost:8085/inventaire/create/dollards/100";
-        RestTemplate restTemplate = new RestTemplate();
-        try {
-            restTemplate.getForObject(url, String.class);
-        } catch (Exception e) {
-            System.err.println("Erreur lors de l'exécution de la requête : " + e.getMessage());
-        }
     }
 
     /**

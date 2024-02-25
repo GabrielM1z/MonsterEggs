@@ -26,7 +26,7 @@ var liste_img_monstre = {
 window.onload = function(){
     checkAllRoute();
     getBoutique();
-    getDollards();
+
     getPoche();
     getEquipe();
     getCoffre() ;
